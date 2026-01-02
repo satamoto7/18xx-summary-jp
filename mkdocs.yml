@@ -1,0 +1,35 @@
+site_name: 18xx サマリー
+site_description: 18xx のルール要点（SR/OR/その他）をスマホで読みやすく整理したサマリー集
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tracking
+    - toc.follow
+plugins:
+  - search
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+extra_css:
+  - stylesheets/extra.css
+nav:
+  - Home: index.md
+  - Games:
+      - 一覧: games/index.md
+      - "1822PNW": games/1822PNW.md
+      - "1860": games/1860.md
+      - "1862": games/1862.md
+      - "1873": games/1873.md
+      - "1880": games/1880.md
+      - "18GB": games/18GB.md
+      - "18India": games/18India.md
+      - "18Ireland": games/18Ireland.md
+      - "18SJ": games/18SJ.md

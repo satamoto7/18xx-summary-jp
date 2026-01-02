@@ -1,0 +1,39 @@
+/* 小さな「印刷」ボタン用 */
+.actions {
+  margin: 0.75rem 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.actions button {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.95rem;
+}
+.actions .action-link {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* テーブルが横に長い場合に横スクロールできるように */
+.md-typeset__table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* 印刷時：ナビやボタン等を消して本文中心に */
+@media print {
+  .md-header,
+  .md-sidebar,
+  .md-footer,
+  .actions,
+  .md-tabs {
+    display: none !important;
+  }
+  .md-content {
+    margin: 0 !important;
+  }
+}
