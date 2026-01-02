@@ -16,8 +16,23 @@ class PlainTextExtractor(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.parts: list[str] = []
+        self.in_row = False
+        self.cell_index = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:  # noqa: ARG002
+        if tag == "table":
+            self._ensure_newline()
+            return
+        if tag == "tr":
+            self._ensure_newline()
+            self.in_row = True
+            self.cell_index = 0
+            return
+        if tag in {"td", "th"}:
+            if self.in_row and self.cell_index > 0:
+                self.parts.append(" | ")
+            self.cell_index += 1
+            return
         if tag in {
             "p",
             "div",
@@ -28,10 +43,6 @@ class PlainTextExtractor(HTMLParser):
             "li",
             "ul",
             "ol",
-            "table",
-            "tr",
-            "td",
-            "th",
             "blockquote",
             "pre",
             "h1",
@@ -48,6 +59,13 @@ class PlainTextExtractor(HTMLParser):
             self.parts.append("\n")
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "tr":
+            self._ensure_newline()
+            self.in_row = False
+            return
+        if tag == "table":
+            self._ensure_newline()
+            return
         if tag in {
             "p",
             "div",
@@ -58,10 +76,6 @@ class PlainTextExtractor(HTMLParser):
             "li",
             "ul",
             "ol",
-            "table",
-            "tr",
-            "td",
-            "th",
             "blockquote",
             "pre",
             "h1",
@@ -74,7 +88,8 @@ class PlainTextExtractor(HTMLParser):
             self._ensure_newline()
 
     def handle_data(self, data: str) -> None:
-        self.parts.append(data)
+        if data.strip():
+            self.parts.append(data)
 
     def _ensure_newline(self) -> None:
         if self.parts and not self.parts[-1].endswith("\n"):
