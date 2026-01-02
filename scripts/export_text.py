@@ -52,11 +52,17 @@ class PlainTextExtractor(HTMLParser):
             "h5",
             "h6",
         }:
-            self._ensure_newline()
+            if self.in_row:
+                self._ensure_space()
+            else:
+                self._ensure_newline()
             if tag == "li":
                 self.parts.append("・")
         if tag == "br":
-            self.parts.append("\n")
+            if self.in_row:
+                self._ensure_space()
+            else:
+                self.parts.append("\n")
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "tr":
@@ -85,7 +91,10 @@ class PlainTextExtractor(HTMLParser):
             "h5",
             "h6",
         }:
-            self._ensure_newline()
+            if self.in_row:
+                self._ensure_space()
+            else:
+                self._ensure_newline()
 
     def handle_data(self, data: str) -> None:
         if self.in_row:
@@ -96,6 +105,12 @@ class PlainTextExtractor(HTMLParser):
     def _ensure_newline(self) -> None:
         if self.parts and not self.parts[-1].endswith("\n"):
             self.parts.append("\n")
+
+    def _ensure_space(self) -> None:
+        if not self.parts:
+            return
+        if not self.parts[-1][-1].isspace():
+            self.parts.append(" ")
 
     def get_text(self) -> str:
         text = "".join(self.parts)
