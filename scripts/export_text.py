@@ -98,7 +98,7 @@ class PlainTextExtractor(HTMLParser):
 
     def handle_data(self, data: str) -> None:
         if self.in_row:
-            data = data.replace("\n", " ")
+            data = re.sub(r"\s+", " ", data)
         if data.strip():
             self.parts.append(data)
 

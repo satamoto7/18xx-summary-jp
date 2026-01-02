@@ -93,14 +93,14 @@ OR
 ※（必）以外はランダムで3社のみ登場
 名前 | 額面 | 配当 | 効果
 Dalkey Atmospheric Railway（必） | £20 | £5 | Wicklowヘクスをこれが購入・除外されるまでブロック
-Dublin & Kingstown Railway（必） | £120 | £0 | Dublin & Kingstown Railwayの社長株獲得　初期株価は落札額の½ / 2H列車を額面で買い　OR1.1から運行可能である
+Dublin & Kingstown Railway（必） | £120 | £0 | Dublin & Kingstown Railwayの社長株獲得 初期株価は落札額の½ / 2H列車を額面で買い OR1.1から運行可能である
 Donegal Railway | £30 | £7 | F4とその隣接タイルに狭軌線路タイル（黄色）をちょうど2枚敷設する、その後閉鎖
 Board of Works | £40 | £9 | 黄色の線路タイルの配置の際に地形コストの支払いが必要ない。（2回使用後閉鎖）
 City of Dublin Steam Packet Company | £45 | £10 | Belfast J4、Londonderry G1、Rosslare I19のいずれかに+£10のマーカー（永続）
 Tralee & Dingle Railway | £50 | £10 | A19,B18に狭軌線路タイル（黄色）をちょうど2枚敷設する、その後閉鎖
-Drumglass Colliery Railway | £60 | £12 | D.C.R.ヘクスH4を購入されるまでブロック　購入会社は該当ヘクスに線路敷設が通常に追加して可能
+Drumglass Colliery Railway | £60 | £12 | D.C.R.ヘクスH4を購入されるまでブロック 購入会社は該当ヘクスに線路敷設が通常に追加して可能
 Trans-Atlantic Steam Packet Station | £75 | £15 | Galway C13に設置可能な20ポンドのボーナスマーカー置き、閉鎖（ゲーム終了時まで永続）
-River Shannon Shipping Co. | £80 | £10 | Dromod F10とLimerick D16に関するボーナス（どちらかの都市に残り片方の都市の価値を追加して収益にすることができる　閉鎖で終了）
+River Shannon Shipping Co. | £80 | £10 | Dromod F10とLimerick D16に関するボーナス（どちらかの都市に残り片方の都市の価値を追加して収益にすることができる 閉鎖で終了）
 William Dargan Esq. | £90 | £10 | £30支払いで2度目のタイルアップグレード
 The Irish Mail | £110 | £20 | Londonderry G1、Kingstown I13、Waterford G19のいずれかに隣接する海上に赤い「盤外」タイルを置くことができる
 フェイズ
