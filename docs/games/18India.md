@@ -2,6 +2,7 @@
 
 <div class="actions">
   <button onclick="window.print()">印刷</button>
+  <a class="action-link" href="../../assets/18India.txt" download>テキストDL</a>
 </div>
 
 === "SR"
