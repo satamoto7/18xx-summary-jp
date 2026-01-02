@@ -10,6 +10,13 @@
 2. `mkdocs.yml` の nav に追加
 3. push すると公開が更新される（GitHub Pagesの場合）
 
+### テキスト版の生成
+
+各ゲームページの「テキストDL」リンクで配布する `docs/assets/<game>.txt` は、`docs/games/` 配下の Markdown から生成します。
+
+- `python scripts/export_text.py` で全ゲーム分のテキストを再生成
+- ゲームを追加・更新したときは必ず実行し、既存のテキストもまとめて更新してください
+
 ## 編集を受け付ける運用
 
 - GitHub の Pull Request で受け付ける
