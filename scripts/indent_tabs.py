@@ -6,6 +6,7 @@ from pathlib import Path
 
 GAMES_DIR = Path("docs/games")
 TAB_HEADER = re.compile(r"^\s*===\s+\"")
+CODE_FENCE = re.compile(r"^\s*(```|~~~)")
 BASE_INDENT = " " * 4
 
 
@@ -25,13 +26,20 @@ def indent_tab_block(lines: list[str]) -> list[str]:
 def indent_tabs_in_content(content: str) -> str:
     lines = content.splitlines()
     output: list[str] = []
+    in_code_block = False
     i = 0
     total = len(lines)
     while i < total:
         line = lines[i]
         output.append(line)
+
+        if CODE_FENCE.match(line):
+            in_code_block = not in_code_block
+            i += 1
+            continue
+
         i += 1
-        if TAB_HEADER.match(line):
+        if not in_code_block and TAB_HEADER.match(line):
             block_start = i
             while i < total and not TAB_HEADER.match(lines[i]):
                 i += 1
