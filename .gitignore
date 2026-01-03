@@ -7,3 +7,8 @@ __pycache__/
 # テスト環境
 test-docs/
 mkdocs-test.yml
+
+# Local memo (do not commit)
+notes/AI_MEMO.md
+
+
