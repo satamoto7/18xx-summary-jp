@@ -24,6 +24,7 @@ nav:
   - Home: index.md
   - Games:
       - 一覧: games/index.md
+      - "1807 The Big four": games/1807 The Big four.md
       - "1822PNW": games/1822PNW.md
       - "1860": games/1860.md
       - "1862": games/1862.md
