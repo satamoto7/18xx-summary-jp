@@ -36,7 +36,7 @@ jobs:
           if [ -d docs/assets ] && git status --porcelain -- docs/assets | grep -q '\.txt'; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git pull --rebase origin main
+            git pull --rebase --autostash origin main
             find docs/assets -name '*.txt' -print0 | xargs -0 -r git add
             git commit -m "[GitHub Actions] Auto-generate text files"
             git push origin HEAD:main
