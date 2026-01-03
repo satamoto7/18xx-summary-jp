@@ -17,6 +17,13 @@
 - `python scripts/export_text.py` で全ゲーム分のテキストを再生成
 - ゲームを追加・更新したときは必ず実行し、既存のテキストもまとめて更新してください
 
+### タブ内インデントの自動調整
+
+Obsidian などでタブ内の記述をインデントなしで編集したい場合は、アップロード前にインデントを自動付与できます。
+
+- 単一ファイルに適用: `python scripts/indent_tabs.py docs/games/18Chesapeake.md`
+- すべてのゲームファイルに適用: `python scripts/indent_tabs.py`
+
 ## 編集を受け付ける運用
 
 - GitHub の Pull Request で受け付ける
