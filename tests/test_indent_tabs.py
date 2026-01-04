@@ -21,6 +21,11 @@ class IndentTabsTests(unittest.TestCase):
         )
         self.assertEqual(indent_tabs_in_content(content), expected)
 
+    def test_preserves_crlf_line_endings(self) -> None:
+        content = '=== "SR"\r\nLine 1\r\n=== "OR"\r\nNext\r\n'
+        expected = '=== "SR"\r\n    Line 1\r\n=== "OR"\r\n    Next\r\n'
+        self.assertEqual(indent_tabs_in_content(content), expected)
+
     def test_ignores_tab_markers_inside_code_fences(self) -> None:
         content = (
             "```markdown\n"

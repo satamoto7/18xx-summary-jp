@@ -151,7 +151,8 @@ def export_texts() -> None:
     for md_path in games:
         text = markdown_to_text(md_path.read_text(encoding="utf-8"))
         asset_path = ASSETS_DIR / f"{md_path.stem}.txt"
-        asset_path.write_text(text, encoding="utf-8")
+        with asset_path.open("w", encoding="utf-8", newline="\n") as handle:
+            handle.write(text)
         print(f"Wrote {asset_path}")
 
 

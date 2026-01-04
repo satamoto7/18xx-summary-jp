@@ -24,6 +24,7 @@ def indent_tab_block(lines: list[str]) -> list[str]:
 
 
 def indent_tabs_in_content(content: str) -> str:
+    newline = "\r\n" if "\r\n" in content else "\n"
     lines = content.splitlines()
     output: list[str] = []
     in_code_block = False
@@ -45,14 +46,16 @@ def indent_tabs_in_content(content: str) -> str:
                 i += 1
             block = lines[block_start:i]
             output.extend(indent_tab_block(block))
-    return "\n".join(output) + ("\n" if content.endswith("\n") else "")
+    return newline.join(output) + (newline if content.endswith("\n") else "")
 
 
 def indent_file(path: Path) -> bool:
-    original = path.read_text(encoding="utf-8")
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        original = handle.read()
     updated = indent_tabs_in_content(original)
     if updated != original:
-        path.write_text(updated, encoding="utf-8")
+        with path.open("w", encoding="utf-8", newline="") as handle:
+            handle.write(updated)
         print(f"Indented tab content in {path}")
         return True
     print(f"No changes needed for {path}")

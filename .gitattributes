@@ -1,0 +1,11 @@
+# Normalize all text files to LF in the repository and working tree.
+* text=auto eol=lf
+
+# Common binary formats (no EOL conversion).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
