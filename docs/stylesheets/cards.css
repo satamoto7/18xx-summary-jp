@@ -1,0 +1,39 @@
+/* ゲームカード用の軽量スタイル。補足情報が未掲載でも間延びしないよう余白と文字サイズを調整する */
+
+.md-typeset .grid.cards .game-card__meta {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.md-typeset .grid.cards .game-card__meta li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .grid.cards .game-card__meta a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.md-typeset .grid.cards .game-card__meta a:hover {
+  text-decoration: underline;
+}
+
+.md-typeset .grid.cards .game-card__placeholder {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.95em;
+}
+
+.md-typeset .grid.cards .card {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.md-typeset .grid.cards .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
