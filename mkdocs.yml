@@ -20,6 +20,7 @@ markdown_extensions:
       alternate_style: true
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/cards.css
 nav:
   - Home: index.md
   - Games:
