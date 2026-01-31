@@ -10,6 +10,9 @@ theme:
     - toc.follow
 plugins:
   - search
+  - awesome-pages
+  - macros:
+      module_name: main
 markdown_extensions:
   - toc:
       permalink: true
@@ -26,18 +29,3 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/cards.css
-nav:
-  - Home: index.md
-  - Games:
-      - 一覧: games/index.md
-      - "1807 The Big four": games/1807 The Big four.md
-      - "1822PNW": games/1822PNW.md
-      - "1860": games/1860.md
-      - "1862": games/1862.md
-      - "1873": games/1873.md
-      - "1880": games/1880.md
-      - "18Chesapeake": games/18Chesapeake.md
-      - "18GB": games/18GB.md
-      - "18India": games/18India.md
-      - "18Ireland": games/18Ireland.md
-      - "18SJ": games/18SJ.md

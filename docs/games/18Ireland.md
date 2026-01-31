@@ -1,8 +1,8 @@
 # 18Ireland サマリー
 
 <div class="actions">
-  <button onclick="window.print()">印刷</button>
-  <a class="action-link" href="../../assets/18Ireland.txt" download>テキストDL</a>
+  {{ print_button() }}
+  {{ download_link("18Ireland.txt") }}
 </div>
 
 === "SR"
@@ -201,3 +201,5 @@
     - 5株会社のうちDublin & Kingstown Railway以外の会社1つを除外
     - それ以外：ランダムに登場順を決定
     - プライベートカンパニーもDalkey Atmospheric RailwayとDublin & Kingstown Railway以外のプライベートカンパニーから3つランダムに選んで、それ以外を除外（その後、値段の高い順に並び替え）
+
+

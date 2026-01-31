@@ -1,11 +1,8 @@
 # 1807 The Big four サマリー
 
 <div class="actions">
-
-  <button onclick="window.print()">印刷</button>
-
-  <a class="action-link" href="../../assets/1807 The Big four.txt" download>テキストDL</a>
-
+  {{ print_button() }}
+  {{ download_link("1807 The Big four.txt") }}
 </div>
 
 === "SR"
@@ -266,3 +263,5 @@
     |P8 London and Blackwall|50|75|25|+10 ロンドン|
     |P9 West London|50|75|25|+10 ロンドン|
     |P10 Liverpool and Manchester|60|90|30|+10 リバプール|
+
+

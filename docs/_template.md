@@ -28,9 +28,9 @@
 -->
 
 <div class="actions">
-  <button onclick="window.print()">印刷</button>
+  {{ print_button() }}
   <!-- テキストファイルがある場合は以下のコメントを外す -->
-  <!-- <a class="action-link" href="../../assets/[ゲーム名].txt" download>テキストDL</a> -->
+  <!-- {{ download_link("[ゲーム名].txt") }} -->
 </div>
 
 === "SR"

@@ -1,7 +1,5 @@
 # ゲーム一覧
 
-サマリーを先に公開し、後からカバー画像や難易度などを追加できるカードレイアウトにしています。補足情報が未掲載でも整った見た目を保つ構成です。
-
 <div class="grid cards" markdown>
 
 -   :material-train: **1807 The Big four**
