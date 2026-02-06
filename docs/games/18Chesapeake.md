@@ -1,3 +1,7 @@
+---
+bgg_id: 253608
+---
+
 # 18Chesapeake サマリー
 
 <div class="actions">

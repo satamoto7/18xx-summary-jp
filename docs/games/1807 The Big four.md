@@ -1,3 +1,7 @@
+---
+bgg_id: 362222
+---
+
 # 1807 The Big four サマリー
 
 <div class="actions">
@@ -263,5 +267,6 @@
     |P8 London and Blackwall|50|75|25|+10 ロンドン|
     |P9 West London|50|75|25|+10 ロンドン|
     |P10 Liverpool and Manchester|60|90|30|+10 リバプール|
+
 
 

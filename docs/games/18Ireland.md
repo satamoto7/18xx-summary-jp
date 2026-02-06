@@ -1,3 +1,7 @@
+---
+bgg_id: 196217
+---
+
 # 18Ireland サマリー
 
 <div class="actions">
@@ -201,5 +205,6 @@
     - 5株会社のうちDublin & Kingstown Railway以外の会社1つを除外
     - それ以外：ランダムに登場順を決定
     - プライベートカンパニーもDalkey Atmospheric RailwayとDublin & Kingstown Railway以外のプライベートカンパニーから3つランダムに選んで、それ以外を除外（その後、値段の高い順に並び替え）
+
 
 

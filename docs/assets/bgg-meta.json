@@ -1,0 +1,182 @@
+{
+  "12750": {
+    "designers": [
+      "Mike Hutton"
+    ],
+    "min_age": 14,
+    "name": "1860: Railways on the Isle of Wight",
+    "players": {
+      "max": 4,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 240,
+      "min": 180
+    },
+    "year_published": 2004
+  },
+  "196217": {
+    "designers": [
+      "Ian Scrivins"
+    ],
+    "min_age": 14,
+    "name": "18Ireland",
+    "players": {
+      "max": 6,
+      "min": 3
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 240
+    },
+    "year_published": 2017
+  },
+  "245532": {
+    "designers": [
+      "Dave Berry"
+    ],
+    "min_age": 12,
+    "name": "18GB: The Railways of Great Britain",
+    "players": {
+      "max": 6,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 120
+    },
+    "year_published": 2018
+  },
+  "253608": {
+    "designers": [
+      "Scott Petersen"
+    ],
+    "min_age": 13,
+    "name": "18Chesapeake",
+    "players": {
+      "max": 6,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 180,
+      "min": 180
+    },
+    "year_published": 2018
+  },
+  "28944": {
+    "designers": [
+      "Klaus Kiermeier"
+    ],
+    "min_age": 0,
+    "name": "Harzbahn 1873",
+    "players": {
+      "max": 5,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 300
+    },
+    "year_published": 2011
+  },
+  "328237": {
+    "designers": [
+      "\u00d6rjan Wennman"
+    ],
+    "min_age": 14,
+    "name": "18SJ: Railways in the Frozen North",
+    "players": {
+      "max": 6,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 120
+    },
+    "year_published": 2021
+  },
+  "344937": {
+    "designers": [
+      "Michael Carter",
+      "Anthony Fryer",
+      "John Harres",
+      "Nick Neylon"
+    ],
+    "min_age": 0,
+    "name": "18 India",
+    "players": {
+      "max": 5,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 240,
+      "min": 150
+    },
+    "year_published": 2023
+  },
+  "360242": {
+    "designers": [
+      "Ken Kuhn"
+    ],
+    "min_age": 12,
+    "name": "1822PNW",
+    "players": {
+      "max": 5,
+      "min": 3
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 180
+    },
+    "year_published": 2023
+  },
+  "362222": {
+    "designers": [
+      "Ian D. Wilson"
+    ],
+    "min_age": 12,
+    "name": "1807: The Big Four",
+    "players": {
+      "max": 5,
+      "min": 3
+    },
+    "playing_time": {
+      "max": 480,
+      "min": 300
+    },
+    "year_published": 2025
+  },
+  "66837": {
+    "designers": [
+      "Mike Hutton"
+    ],
+    "min_age": 14,
+    "name": "1862: Railway Mania in the Eastern Counties",
+    "players": {
+      "max": 8,
+      "min": 1
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 120
+    },
+    "year_published": 2013
+  },
+  "69601": {
+    "designers": [
+      "Helmut Ohley",
+      "Leonhard \"Lonny\" Orgler"
+    ],
+    "min_age": 13,
+    "name": "1880: China",
+    "players": {
+      "max": 7,
+      "min": 3
+    },
+    "playing_time": {
+      "max": 300,
+      "min": 300
+    },
+    "year_published": 2010
+  }
+}
