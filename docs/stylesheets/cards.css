@@ -1,39 +1,148 @@
-/* ゲームカード用の軽量スタイル。補足情報が未掲載でも間延びしないよう余白と文字サイズを調整する */
+/* ゲームカード: 崩れにくさと可読性を優先した実用スタイル */
+
+.md-typeset .grid.cards .card {
+  border: 1px solid #dde3ea;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.06);
+  transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.md-typeset .grid.cards .card:hover {
+  border-color: #cfd8e3;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.1);
+}
+
+.md-typeset .grid.cards .game-card__title-text {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.md-typeset .grid.cards .game-card__year-badge {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.08rem 0.42rem;
+  border-radius: 0.45rem;
+  border: 1px solid #ced8e4;
+  background: #f3f6fa;
+  color: #334155;
+  font-size: 0.74em;
+  font-weight: 700;
+  line-height: 1.35;
+  vertical-align: middle;
+}
 
 .md-typeset .grid.cards .game-card__meta {
-  margin: 0.6rem 0 0;
+  margin: 0.62rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .md-typeset .grid.cards .game-card__meta li {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  margin: 0;
   color: var(--md-default-fg-color);
 }
 
-.md-typeset .grid.cards .game-card__meta a {
-  font-weight: 600;
+.md-typeset .grid.cards .game-card__meta .game-card__meta-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.2rem 0.58rem;
+  border: 1px solid #d7dee8;
+  border-radius: 999px;
+  background: #f5f7fa;
+  color: #334155;
+  font-size: 0.9em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__chip-label {
+  color: #64748b;
+  font-size: 0.88em;
+  font-weight: 700;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__meta-details {
+  display: block;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__meta-extra {
+  margin: 0;
+  padding: 0.52rem 0.65rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.52rem;
+  background: #fafbfd;
+  list-style: none;
+  display: grid;
+  gap: 0.24rem;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__meta-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  line-height: 1.4;
+  min-width: 0;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__meta-label {
+  color: #64748b;
+  font-size: 0.88em;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.md-typeset .grid.cards .game-card__meta .game-card__meta-inline span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.md-typeset .grid.cards .game-card__summary {
+  display: block;
+}
+
+.md-typeset .grid.cards .game-card__summary a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.46rem 0.82rem;
+  border: 1px solid #d2dbe6;
+  border-radius: 0.58rem;
+  background: #f8fafc;
+  color: #1f2937;
+  font-size: 0.95em;
+  font-weight: 700;
   text-decoration: none;
 }
 
-.md-typeset .grid.cards .game-card__meta a:hover {
+.md-typeset .grid.cards .game-card__summary a:hover {
+  border-color: #bfcadb;
+  background: #f1f5f9;
+  text-decoration: none;
+}
+
+.md-typeset .grid.cards .game-card__summary a:focus-visible,
+.md-typeset .grid.cards .game-card__meta a:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.md-typeset .grid.cards .game-card__meta a {
   text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .md-typeset .grid.cards .game-card__placeholder {
   color: var(--md-default-fg-color--light);
   font-size: 0.95em;
-}
-
-.md-typeset .grid.cards .card {
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.md-typeset .grid.cards .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
