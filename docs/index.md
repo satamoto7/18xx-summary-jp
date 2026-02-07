@@ -16,3 +16,12 @@
 ## フィードバック・追加リクエスト
 
 誤記の修正や新しいゲームの追加リクエストは、[GitHub Issues](https://github.com/satamoto7/18xx-summary-jp/issues)までお願いします。
+
+---
+
+<div class="bgg-attribution">
+  <a href="https://boardgamegeek.com" target="_blank" rel="noopener">
+    <img src="assets/powered-by-bgg-rgb.svg" alt="Powered by BoardGameGeek" width="171" height="38">
+  </a>
+  <p>ゲームのメタデータ（ボックスカバー画像、プレイ人数、プレイ時間、デザイナー等）は <a href="https://boardgamegeek.com" target="_blank" rel="noopener">BoardGameGeek</a> のAPIから取得しています。</p>
+</div>
