@@ -3,6 +3,10 @@ site_description: 18xx のルール要点（SR/OR/その他）をスマホで読
 theme:
   name: material
   language: ja
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: amber
   features:
     - navigation.instant
     - navigation.sections
@@ -27,5 +31,7 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 extra_css:
+  - stylesheets/theme-tokens.css
+  - stylesheets/theme-components.css
   - stylesheets/extra.css
   - stylesheets/cards.css

@@ -1,0 +1,51 @@
+:root {
+  --bg: #e6e3dc;
+  --surface: #f6f7f8;
+  --surface-soft: #eef1f4;
+  --border: #c4beb2;
+
+  --text: #1f2328;
+  --text-muted: #4b5563;
+  --text-subtle: #5a6778;
+
+  --accent: #b08d57;
+  --accent-hover: #7a623b;
+  --accent-contrast: #ffffff;
+
+  --success: #2f855a;
+  --warning: #b7791f;
+  --danger: #c53030;
+
+  --phase-yellow: #e6c84f;
+  --phase-green: #3fae6b;
+  --phase-brown: #9a6a3a;
+  --phase-gray: #6b7280;
+
+  --rail-brass: #b08d57;
+  --rail-brass-dark: #7a623b;
+
+  --card-border: #c4beb2;
+  --card-bg-start: #fafbfd;
+  --card-bg-end: #eff2f5;
+  --card-shadow: 0 1px 4px rgba(31, 35, 40, 0.12);
+  --card-chip-bg: #f8f6f1;
+  --card-chip-border: #bca983;
+  --card-details-bg: #f0ede6;
+  --card-details-header-bg: #d8dfe6;
+  --focus-ring-shadow: rgba(176, 141, 87, 0.3);
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--bg);
+  --md-default-fg-color: var(--text);
+  --md-default-fg-color--light: var(--text-muted);
+  --md-default-fg-color--lighter: rgba(31, 35, 40, 0.32);
+  --md-default-fg-color--lightest: rgba(31, 35, 40, 0.12);
+
+  --md-primary-fg-color: #25344a;
+  --md-primary-fg-color--light: #3d4f68;
+  --md-primary-fg-color--dark: #1a2535;
+
+  --md-accent-fg-color: var(--accent);
+  --md-accent-fg-color--transparent: rgba(176, 141, 87, 0.14);
+}

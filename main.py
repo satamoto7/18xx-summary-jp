@@ -2,9 +2,36 @@ from __future__ import annotations
 
 import html
 import json
+import markdown
 from pathlib import Path
+from material.extensions.emoji import to_svg, twemoji
 
 BGG_META_PATH = Path("docs/assets/bgg-meta.json")
+COVER_IMAGE_DIR = Path("docs/assets/game-covers")
+_icon_md = markdown.Markdown(
+    extensions=["pymdownx.emoji"],
+    extension_configs={
+        "pymdownx.emoji": {
+            "emoji_index": twemoji,
+            "emoji_generator": to_svg,
+        }
+    },
+)
+
+
+def _material_icon(shortname: str, css_class: str | None = None) -> str:
+    try:
+        rendered = _icon_md.convert(f":{shortname}:")
+        _icon_md.reset()
+    except Exception:
+        return ""
+
+    rendered = rendered.strip()
+    if rendered.startswith("<p>") and rendered.endswith("</p>"):
+        rendered = rendered[3:-4]
+    if not css_class:
+        return rendered
+    return f'<span class="{css_class}" aria-hidden="true">{rendered}</span>'
 
 
 def _load_bgg_meta() -> dict[str, dict]:
@@ -30,6 +57,60 @@ def _attr_int(value: object) -> str:
     if isinstance(value, int):
         return str(value)
     return ""
+
+
+def _build_chip_html(fields: dict) -> str:
+    chips: list[str] = []
+    if fields["players_text"]:
+        chips.append(
+            '<span class="game-card__chip">'
+            f'{_material_icon("material-account-group", "game-card__chip-icon")}'
+            '<span class="game-card__chip-label">人数</span>'
+            f'{fields["players_text"]}'
+            "</span>"
+        )
+    if fields["time_text"]:
+        chips.append(
+            '<span class="game-card__chip">'
+            f'{_material_icon("material-timer-outline", "game-card__chip-icon")}'
+            '<span class="game-card__chip-label">時間</span>'
+            f'{fields["time_text"]}'
+            "</span>"
+        )
+    return "".join(chips)
+
+
+def _build_detail_rows_html(fields: dict) -> str:
+    rows: list[str] = []
+
+    if isinstance(fields["year"], int):
+        rows.append(
+            '<li class="game-card__detail-row">'
+            f'{_material_icon("material-calendar", "game-card__detail-icon")}'
+            '<span class="game-card__detail-label">発売年</span>'
+            f'<span>{fields["year"]}</span>'
+            "</li>"
+        )
+
+    if isinstance(fields["min_age"], int) and fields["min_age"] > 0:
+        rows.append(
+            '<li class="game-card__detail-row">'
+            f'{_material_icon("material-badge-account", "game-card__detail-icon")}'
+            '<span class="game-card__detail-label">対象年齢</span>'
+            f'<span>{fields["min_age"]}+</span>'
+            "</li>"
+        )
+
+    if fields["safe_designers"]:
+        rows.append(
+            '<li class="game-card__detail-row">'
+            f'{_material_icon("material-draw", "game-card__detail-icon")}'
+            '<span class="game-card__detail-label">デザイナー</span>'
+            f'<span>{", ".join(fields["safe_designers"])}</span>'
+            "</li>"
+        )
+
+    return "".join(rows)
 
 
 def define_env(env) -> None:
@@ -88,6 +169,12 @@ def define_env(env) -> None:
         return '<button onclick="window.print()">印刷</button>'
 
     @env.macro
+    def icon(name: str) -> str:
+        if not isinstance(name, str) or not name.strip():
+            return ""
+        return _material_icon(name.strip())
+
+    @env.macro
     def download_link(filename: str) -> str:
         if not filename:
             return ""
@@ -101,11 +188,105 @@ def define_env(env) -> None:
         year_badge = ""
         fields = _extract_meta_fields(bgg_id)
         if isinstance(fields, dict) and isinstance(fields.get("year"), int):
-            year_badge = f'<span class="game-card__year-badge">{fields["year"]}</span>'
+            year_badge = (
+                '<span class="game-card__year-badge">'
+                f'{_material_icon("material-calendar", "game-card__year-icon")}'
+                f'{fields["year"]}'
+                "</span>"
+            )
         return (
             f'<span class="game-card__title-text">{safe_title}</span>'
             f"{year_badge}"
         )
+
+    @env.macro
+    def game_cover(bgg_id: str, title: str, href: str = "") -> str:
+        safe_bgg_id = str(bgg_id).strip()
+        safe_title = html.escape(title) if title else "Game"
+
+        if not safe_bgg_id:
+            return (
+                '<figure class="game-card__media game-card__media--placeholder">'
+                '<span class="game-card__media-placeholder-text">NO IMAGE</span>'
+                "</figure>"
+            )
+
+        cover_path = COVER_IMAGE_DIR / f"{safe_bgg_id}.webp"
+        if not cover_path.exists():
+            return (
+                '<figure class="game-card__media game-card__media--placeholder">'
+                '<span class="game-card__media-placeholder-text">NO IMAGE</span>'
+                "</figure>"
+            )
+
+        image_src = f"../assets/game-covers/{html.escape(safe_bgg_id, quote=True)}.webp"
+        image_html = (
+            f'<img src="{image_src}" '
+            f'alt="{safe_title} パッケージ画像" '
+            'loading="lazy" '
+            'decoding="async">'
+        )
+
+        if href:
+            safe_href = html.escape(href, quote=True)
+            aria_label = html.escape(f"{title} サマリーを見る", quote=True) if title else "サマリーを見る"
+            image_html = (
+                f'<a class="game-card__media-link" href="{safe_href}" '
+                f'aria-label="{aria_label}">{image_html}</a>'
+            )
+
+        return f'<figure class="game-card__media">{image_html}</figure>'
+
+    @env.macro
+    def game_actions(bgg_id: str, summary_href: str) -> str:
+        fields = _extract_meta_fields(bgg_id)
+        safe_href = html.escape(summary_href, quote=True) if summary_href else ""
+
+        chips_block = ""
+        details_block = ""
+        if isinstance(fields, dict):
+            chips_html = _build_chip_html(fields)
+            if chips_html:
+                chips_attrs = (
+                    f'data-bgg-id="{html.escape(fields["bgg_id"], quote=True)}" '
+                    f'data-players-min="{_attr_int(fields["players_min"])}" '
+                    f'data-players-max="{_attr_int(fields["players_max"])}" '
+                    f'data-time-min="{_attr_int(fields["time_min"])}" '
+                    f'data-time-max="{_attr_int(fields["time_max"])}" '
+                    f'data-year="{_attr_int(fields["year"])}" '
+                    f'data-min-age="{_attr_int(fields["min_age"])}"'
+                )
+                chips_block = f'<div class="game-card__chips" {chips_attrs}>{chips_html}</div>'
+
+            detail_rows = _build_detail_rows_html(fields)
+            if detail_rows:
+                details_block = (
+                    '<details class="game-card__details">'
+                    '<summary class="game-card__details-summary">'
+                    '<span class="game-card__details-summary-label">詳細情報</span>'
+                    "</summary>"
+                    f'<ul class="game-card__details-body">{detail_rows}</ul>'
+                    "</details>"
+                )
+
+        cta_block = ""
+        if safe_href:
+            cta_block = (
+                f'<a class="md-button md-button--primary game-card__cta" href="{safe_href}">'
+                f'{_material_icon("material-file-document-outline", "game-card__cta-icon")}'
+                '<span class="game-card__cta-label">サマリーを見る</span>'
+                "</a>"
+            )
+
+        top_parts = "".join(part for part in (chips_block, cta_block) if part)
+        top_block = ""
+        if top_parts:
+            top_block = f'<div class="game-card__actions-top">{top_parts}</div>'
+
+        if not top_block and not details_block:
+            return ""
+
+        return f'<div class="game-card__actions">{top_block}{details_block}</div>'
 
     @env.macro
     def game_chips(bgg_id: str) -> str:
@@ -183,8 +364,11 @@ def define_env(env) -> None:
 
         return (
             '<li class="game-card__meta-details">'
+            '<details class="game-card__details">'
+            '<summary class="game-card__details-summary">詳細情報</summary>'
             '<ul class="game-card__meta-extra">'
             f"{''.join(detail_items)}"
             "</ul>"
+            "</details>"
             "</li>"
         )

@@ -1,0 +1,45 @@
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.md-main {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+}
+
+.md-content,
+.md-typeset {
+  color: var(--text);
+}
+
+.md-typeset a {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-decoration-color: var(--rail-brass);
+  text-underline-offset: 0.14em;
+}
+
+.md-typeset a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.md-typeset .md-button {
+  border-color: var(--rail-brass);
+}
+
+.md-typeset .md-button--primary {
+  background-color: var(--rail-brass);
+  border-color: var(--rail-brass);
+  color: var(--accent-contrast);
+}
+
+.md-typeset .md-button--primary:hover {
+  background-color: var(--rail-brass-dark);
+  border-color: var(--rail-brass-dark);
+}
+
+.md-typeset :focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}

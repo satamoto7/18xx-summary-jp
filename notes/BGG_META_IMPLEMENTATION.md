@@ -1,6 +1,17 @@
 # BGGメタ情報 自動取得 実装設計版（案）
 
-更新日: 2026-01-31
+更新日: 2026-02-07
+
+## TODOステータス（2026-02-07）
+- [x] 1) `navigation.instant` と `site_url` の整合確認（完了）
+- [ ] 2) カバー画像のサイズ方針実装
+  - [ ] BGG `image` / `thumbnail` 取得
+  - [ ] ローカルリサイズで `docs/assets/game-covers/*.webp` 生成
+  - [ ] `bgg-meta.json` に `cover.path/width/height/source` を保存
+  - [ ] `main.py` の `<img>` に `width` / `height` を出力
+- [ ] 3) カバー画像未配置タスク
+  - [ ] 既存ゲーム分のカバー画像を生成・配置
+  - [ ] 画像未取得時のプレースホルダ動作を最終確認
 
 このドキュメントは、18xx-summary-site における BGG XML API2 からの
 メタ情報自動取得の「実装設計版（最小）」です。スコープは必須項目のみ。
@@ -127,3 +138,46 @@ write_json("docs/assets/bgg-meta.json", result)
 - BGGの規約変更に備え、取得処理は 1ファイルに集約
 - 結果JSONは「必要最小限」の抽出に留める
 
+## 9) 次回タスク: カバー画像取得とサイズ定義
+
+### 9-1. 調査結果（確定）
+- BGG XML API2 (`/xmlapi2/thing`) には、画像サイズを指定する公式リクエストパラメータはない。
+- APIレスポンスとして利用できる画像系フィールドは `thumbnail` と `image`。
+- URLの見た目にサイズ表現が含まれる場合があるが、API仕様として任意サイズを保証するものとは扱わない。
+
+### 9-2. 実装方針（定義）
+- `scripts/bgg_fetch.py`（または分離した画像取得スクリプト）で `image` URLを取得する。
+- 取得画像をローカルでリサイズし、`docs/assets/game-covers/<bgg_id>.webp` を生成する。
+- 生成時に確定した `width` / `height` をメタデータとして保持する（JSONに含める）。
+- `main.py` の `game_cover` マクロで `<img>` に `width` / `height` を必ず出力する。
+
+### 9-3. 生成データ仕様（追加）
+`docs/assets/bgg-meta.json` の各ゲームに、次の `cover` オブジェクトを追加する。
+
+```json
+{
+  "362222": {
+    "name": "1807: The Big Four",
+    "players": { "min": 3, "max": 5 },
+    "playing_time": { "min": 300, "max": 480 },
+    "year_published": 2025,
+    "min_age": 12,
+    "designers": ["Ian D. Wilson"],
+    "cover": {
+      "path": "assets/game-covers/362222.webp",
+      "width": 480,
+      "height": 640,
+      "source": "image"
+    }
+  }
+}
+```
+
+補足:
+- `path` は `docs/` からの相対パス（サイト配信時は `assets/...`）。
+- `source` は `image` または `thumbnail` のどちらから生成したかを記録。
+
+### 9-4. 受け入れ条件
+- 画像があるカードでは `<img width="..." height="...">` が出力される。
+- 画像未取得のカードは既存プレースホルダ表示で崩れない。
+- BGG取得失敗時は前回の画像・JSONを維持し、サイト表示が継続する。
