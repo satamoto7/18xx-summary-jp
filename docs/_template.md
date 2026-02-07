@@ -29,6 +29,7 @@
 
 <div class="actions">
   {{ print_button() }}
+  <a class="action-link" href="../">ゲーム一覧へ戻る</a>
   <!-- テキストファイルがある場合は以下のコメントを外す -->
   <!-- {{ download_link("[ゲーム名].txt") }} -->
 </div>

@@ -1,5 +1,5 @@
 ---
-name: mkdocs-material-ui-patterns-cards-buttons
+name: mkdocs-ui-patterns-cards-buttons
 description: Material for MkDocs で「カード型カタログ」「ボタン配置」「タブ」「注意枠」「ツールチップ」「コードブロック」「タスクリスト」「脚注」「表」「画像配置」「図（Mermaid等）」を実装するときの“参照用チートシート”を生成する。mkdocs.yml で必要な拡張・推奨設定、Markdown例、デザイン上の注意点、最小テンプレ（index用）を提示する。ロゴ制作、画像編集、CMS/DB実装は対象外。
 ---
 

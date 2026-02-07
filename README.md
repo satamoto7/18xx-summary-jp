@@ -24,6 +24,12 @@ Obsidian などでタブ内の記述をインデントなしで編集したい�
 - 単一ファイルに適用: `python scripts/indent_tabs.py docs/games/18Chesapeake.md`
 - すべてのゲームファイルに適用: `python scripts/indent_tabs.py`
 
+### 構造チェック
+
+ゲームページの必須構造（タイトル / actions / タブ構成）と、`docs/games/.pages` および `docs/games/index.md` の整合は次のコマンドで検証できます。
+
+- `python scripts/validate_structure.py`
+
 ## 編集を受け付ける運用
 
 - GitHub の Pull Request で受け付ける

@@ -12,4 +12,7 @@ mkdocs-test.yml
 # Local memo (do not commit)
 notes/AI_MEMO.md
 
+# Claude Code local settings
+.claude/settings.local.json
+
 

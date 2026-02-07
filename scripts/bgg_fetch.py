@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import json
 import os
 import re
@@ -12,9 +13,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+try:
+    from PIL import Image, UnidentifiedImageError
+except ImportError:  # pragma: no cover - handled at runtime
+    Image = None  # type: ignore[assignment]
+    UnidentifiedImageError = Exception  # type: ignore[assignment]
+
 GAMES_DIR = Path("docs/games")
 ASSETS_DIR = Path("docs/assets")
 OUTPUT_JSON = ASSETS_DIR / "bgg-meta.json"
+COVERS_DIR = ASSETS_DIR / "game-covers"
 
 API_URL = "https://boardgamegeek.com/xmlapi2/thing"
 REQUEST_TYPES = "boardgame"
@@ -22,9 +30,14 @@ CHUNK_SIZE = 20
 REQUEST_SLEEP_SECONDS = 5
 RETRY_MAX = 4
 RETRY_BACKOFF_SECONDS = 5
+IMAGE_TIMEOUT_SECONDS = 30
+COVER_MAX_WIDTH = 480
+COVER_MAX_HEIGHT = 640
+COVER_WEBP_QUALITY = 85
 
 FRONTMATTER_START = re.compile(r"^---\s*$")
 FRONTMATTER_KV = re.compile(r"^bgg_id\s*:\s*['\"]?(\d+)['\"]?\s*$")
+_PILLOW_MISSING_WARNED = False
 
 
 @dataclass
@@ -37,6 +50,8 @@ class GameMeta:
     year_published: int | None
     min_age: int | None
     designers: list[str]
+    image_url: str | None
+    thumbnail_url: str | None
 
     def to_json(self) -> dict:
         return {
@@ -144,6 +159,105 @@ def _int_attr(node: ET.Element | None, key: str = "value") -> int | None:
         return None
 
 
+def _normalize_url(text: str | None) -> str | None:
+    if not isinstance(text, str):
+        return None
+    value = text.strip()
+    if not value:
+        return None
+    return value
+
+
+def _load_image_bytes(url: str) -> bytes:
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Accept": "image/*",
+            "User-Agent": "18xx-summary-site/1.0 (+https://boardgamegeek.com)",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=IMAGE_TIMEOUT_SECONDS) as response:
+        return response.read()
+
+
+def _extract_previous_cover(previous_entry: object, bgg_id: str) -> dict | None:
+    if not isinstance(previous_entry, dict):
+        return None
+    cover = previous_entry.get("cover")
+    if not isinstance(cover, dict):
+        return None
+
+    path = cover.get("path")
+    width = cover.get("width")
+    height = cover.get("height")
+    source = cover.get("source")
+    if (
+        isinstance(path, str)
+        and isinstance(width, int)
+        and isinstance(height, int)
+        and isinstance(source, str)
+        and width > 0
+        and height > 0
+    ):
+        expected = f"assets/game-covers/{bgg_id}.webp"
+        if path == expected and (COVERS_DIR / f"{bgg_id}.webp").exists():
+            return {
+                "path": path,
+                "width": width,
+                "height": height,
+                "source": source,
+            }
+    return None
+
+
+def _generate_cover(bgg_id: str, image_url: str | None, thumbnail_url: str | None) -> dict | None:
+    global _PILLOW_MISSING_WARNED
+    if Image is None:
+        if not _PILLOW_MISSING_WARNED:
+            print("Cover generation skipped: Pillow is not installed.")
+            _PILLOW_MISSING_WARNED = True
+        return None
+
+    candidates = [
+        ("image", image_url),
+        ("thumbnail", thumbnail_url),
+    ]
+
+    resample = Image.Resampling.LANCZOS if hasattr(Image, "Resampling") else Image.LANCZOS
+    for source, url in candidates:
+        if not url:
+            continue
+        try:
+            raw = _load_image_bytes(url)
+            with Image.open(io.BytesIO(raw)) as loaded:
+                rgb = loaded.convert("RGB")
+                rgb.thumbnail((COVER_MAX_WIDTH, COVER_MAX_HEIGHT), resample=resample)
+
+                if rgb.width <= 0 or rgb.height <= 0:
+                    continue
+
+                COVERS_DIR.mkdir(parents=True, exist_ok=True)
+                output_path = COVERS_DIR / f"{bgg_id}.webp"
+                rgb.save(output_path, format="WEBP", quality=COVER_WEBP_QUALITY, method=6)
+        except (
+            OSError,
+            urllib.error.URLError,
+            urllib.error.HTTPError,
+            UnidentifiedImageError,
+        ) as exc:
+            print(f"Cover fetch failed for {bgg_id} ({source}): {exc}")
+            continue
+
+        return {
+            "path": f"assets/game-covers/{bgg_id}.webp",
+            "width": rgb.width,
+            "height": rgb.height,
+            "source": source,
+        }
+
+    return None
+
+
 def parse_xml(xml_text: str) -> dict[str, GameMeta]:
     root = ET.fromstring(xml_text)
     result: dict[str, GameMeta] = {}
@@ -183,6 +297,9 @@ def parse_xml(xml_text: str) -> dict[str, GameMeta]:
             if link.get("type") == "boardgamedesigner" and link.get("value")
         ]
 
+        image_url = _normalize_url(item.findtext("image"))
+        thumbnail_url = _normalize_url(item.findtext("thumbnail"))
+
         result[item_id] = GameMeta(
             name=name,
             players_min=min_players,
@@ -192,6 +309,8 @@ def parse_xml(xml_text: str) -> dict[str, GameMeta]:
             year_published=year_published,
             min_age=min_age,
             designers=designers,
+            image_url=image_url,
+            thumbnail_url=thumbnail_url,
         )
     return result
 
@@ -231,7 +350,17 @@ def main() -> None:
             for bgg_id in chunk:
                 meta = parsed.get(bgg_id)
                 if meta:
-                    result[bgg_id] = meta.to_json()
+                    current = meta.to_json()
+                    cover = _generate_cover(bgg_id, meta.image_url, meta.thumbnail_url)
+                    if cover:
+                        current["cover"] = cover
+                    else:
+                        preserved_cover = _extract_previous_cover(previous.get(bgg_id), bgg_id)
+                        if preserved_cover:
+                            current["cover"] = preserved_cover
+                    result[bgg_id] = current
+                elif bgg_id in previous:
+                    result[bgg_id] = previous[bgg_id]
         except RuntimeError as exc:
             print(f"Fetch failed for chunk {chunk}: {exc}")
             for bgg_id in chunk:

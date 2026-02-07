@@ -6,6 +6,7 @@ bgg_id: 196217
 
 <div class="actions">
   {{ print_button() }}
+  <a class="action-link" href="../">ゲーム一覧へ戻る</a>
   {{ download_link("18Ireland.txt") }}
 </div>
 

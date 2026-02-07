@@ -7,7 +7,6 @@ from pathlib import Path
 from material.extensions.emoji import to_svg, twemoji
 
 BGG_META_PATH = Path("docs/assets/bgg-meta.json")
-COVER_IMAGE_DIR = Path("docs/assets/game-covers")
 _icon_md = markdown.Markdown(
     extensions=["pymdownx.emoji"],
     extension_configs={
@@ -126,6 +125,7 @@ def define_env(env) -> None:
         year = meta.get("year_published")
         designers = meta.get("designers")
         min_age = meta.get("min_age")
+        cover = meta.get("cover")
 
         players_min: object = None
         players_max: object = None
@@ -151,6 +151,26 @@ def define_env(env) -> None:
                 if isinstance(name, str) and name.strip()
             ]
 
+        cover_path: str | None = None
+        cover_width: int | None = None
+        cover_height: int | None = None
+        if isinstance(cover, dict):
+            path = cover.get("path")
+            width = cover.get("width")
+            height = cover.get("height")
+            if (
+                isinstance(path, str)
+                and path.startswith("assets/game-covers/")
+                and isinstance(width, int)
+                and isinstance(height, int)
+                and width > 0
+                and height > 0
+                and (Path("docs") / path).exists()
+            ):
+                cover_path = path
+                cover_width = width
+                cover_height = height
+
         return {
             "bgg_id": str(bgg_id),
             "players_min": players_min,
@@ -162,6 +182,9 @@ def define_env(env) -> None:
             "year": year,
             "min_age": min_age,
             "safe_designers": safe_designers,
+            "cover_path": cover_path,
+            "cover_width": cover_width,
+            "cover_height": cover_height,
         }
 
     @env.macro
@@ -203,6 +226,7 @@ def define_env(env) -> None:
     def game_cover(bgg_id: str, title: str, href: str = "") -> str:
         safe_bgg_id = str(bgg_id).strip()
         safe_title = html.escape(title) if title else "Game"
+        fields = _extract_meta_fields(safe_bgg_id)
 
         if not safe_bgg_id:
             return (
@@ -211,18 +235,33 @@ def define_env(env) -> None:
                 "</figure>"
             )
 
-        cover_path = COVER_IMAGE_DIR / f"{safe_bgg_id}.webp"
-        if not cover_path.exists():
+        if not isinstance(fields, dict):
             return (
                 '<figure class="game-card__media game-card__media--placeholder">'
                 '<span class="game-card__media-placeholder-text">NO IMAGE</span>'
                 "</figure>"
             )
 
-        image_src = f"../assets/game-covers/{html.escape(safe_bgg_id, quote=True)}.webp"
+        cover_path = fields.get("cover_path")
+        cover_width = fields.get("cover_width")
+        cover_height = fields.get("cover_height")
+        if (
+            not isinstance(cover_path, str)
+            or not isinstance(cover_width, int)
+            or not isinstance(cover_height, int)
+        ):
+            return (
+                '<figure class="game-card__media game-card__media--placeholder">'
+                '<span class="game-card__media-placeholder-text">NO IMAGE</span>'
+                "</figure>"
+            )
+
+        image_src = f"../{html.escape(cover_path, quote=True)}"
         image_html = (
             f'<img src="{image_src}" '
             f'alt="{safe_title} パッケージ画像" '
+            f'width="{cover_width}" '
+            f'height="{cover_height}" '
             'loading="lazy" '
             'decoding="async">'
         )

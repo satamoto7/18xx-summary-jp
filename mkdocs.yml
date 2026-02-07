@@ -9,6 +9,7 @@ theme:
       accent: amber
   features:
     - navigation.instant
+    - navigation.indexes
     - navigation.sections
     - navigation.tracking
     - toc.follow

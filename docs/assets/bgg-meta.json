@@ -1,5 +1,11 @@
 {
   "12750": {
+    "cover": {
+      "height": 577,
+      "path": "assets/game-covers/12750.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Mike Hutton"
     ],
@@ -16,6 +22,12 @@
     "year_published": 2004
   },
   "196217": {
+    "cover": {
+      "height": 579,
+      "path": "assets/game-covers/196217.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Ian Scrivins"
     ],
@@ -32,6 +44,12 @@
     "year_published": 2017
   },
   "245532": {
+    "cover": {
+      "height": 580,
+      "path": "assets/game-covers/245532.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Dave Berry"
     ],
@@ -48,6 +66,12 @@
     "year_published": 2018
   },
   "253608": {
+    "cover": {
+      "height": 576,
+      "path": "assets/game-covers/253608.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Scott Petersen"
     ],
@@ -64,6 +88,12 @@
     "year_published": 2018
   },
   "28944": {
+    "cover": {
+      "height": 579,
+      "path": "assets/game-covers/28944.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Klaus Kiermeier"
     ],
@@ -80,6 +110,12 @@
     "year_published": 2011
   },
   "328237": {
+    "cover": {
+      "height": 575,
+      "path": "assets/game-covers/328237.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "\u00d6rjan Wennman"
     ],
@@ -96,6 +132,12 @@
     "year_published": 2021
   },
   "344937": {
+    "cover": {
+      "height": 640,
+      "path": "assets/game-covers/344937.webp",
+      "source": "image",
+      "width": 479
+    },
     "designers": [
       "Michael Carter",
       "Anthony Fryer",
@@ -115,6 +157,12 @@
     "year_published": 2023
   },
   "360242": {
+    "cover": {
+      "height": 578,
+      "path": "assets/game-covers/360242.webp",
+      "source": "image",
+      "width": 480
+    },
     "designers": [
       "Ken Kuhn"
     ],
@@ -131,6 +179,12 @@
     "year_published": 2023
   },
   "362222": {
+    "cover": {
+      "height": 640,
+      "path": "assets/game-covers/362222.webp",
+      "source": "image",
+      "width": 475
+    },
     "designers": [
       "Ian D. Wilson"
     ],
@@ -147,6 +201,12 @@
     "year_published": 2025
   },
   "66837": {
+    "cover": {
+      "height": 499,
+      "path": "assets/game-covers/66837.webp",
+      "source": "image",
+      "width": 384
+    },
     "designers": [
       "Mike Hutton"
     ],
@@ -163,6 +223,12 @@
     "year_published": 2013
   },
   "69601": {
+    "cover": {
+      "height": 640,
+      "path": "assets/game-covers/69601.webp",
+      "source": "image",
+      "width": 455
+    },
     "designers": [
       "Helmut Ohley",
       "Leonhard \"Lonny\" Orgler"

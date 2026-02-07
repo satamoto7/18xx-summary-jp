@@ -4,14 +4,14 @@
 
 ## TODOステータス（2026-02-07）
 - [x] 1) `navigation.instant` と `site_url` の整合確認（完了）
-- [ ] 2) カバー画像のサイズ方針実装
-  - [ ] BGG `image` / `thumbnail` 取得
-  - [ ] ローカルリサイズで `docs/assets/game-covers/*.webp` 生成
-  - [ ] `bgg-meta.json` に `cover.path/width/height/source` を保存
-  - [ ] `main.py` の `<img>` に `width` / `height` を出力
+- [x] 2) カバー画像のサイズ方針実装
+  - [x] BGG `image` / `thumbnail` 取得
+  - [x] ローカルリサイズで `docs/assets/game-covers/*.webp` 生成
+  - [x] `bgg-meta.json` に `cover.path/width/height/source` を保存
+  - [x] `main.py` の `<img>` に `width` / `height` を出力
 - [ ] 3) カバー画像未配置タスク
   - [ ] 既存ゲーム分のカバー画像を生成・配置
-  - [ ] 画像未取得時のプレースホルダ動作を最終確認
+  - [x] 画像未取得時のプレースホルダ動作を最終確認
 
 このドキュメントは、18xx-summary-site における BGG XML API2 からの
 メタ情報自動取得の「実装設計版（最小）」です。スコープは必須項目のみ。
