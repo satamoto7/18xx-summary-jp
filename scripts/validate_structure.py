@@ -19,6 +19,9 @@ DOWNLOAD_HREF_PATTERN = re.compile(r'href\s*=\s*"(?P<href>[^"]+)"')
 GAMES_INDEX_ACTION_PATTERN = re.compile(
     r'{{\s*game_actions\([^,]+,\s*"(?P<href>[^"]+)"\)\s*}}'
 )
+GAMES_INDEX_CARD_PATTERN = re.compile(
+    r'{{\s*game_card\(\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"(?P<href>[^"]+)"\s*\)\s*}}'
+)
 
 ALLOWED_TAB_NAMES = {
     "SR",
@@ -253,6 +256,10 @@ def validate_pages_alignment(
         _normalize_href_to_stem(match.group("href"))
         for match in GAMES_INDEX_ACTION_PATTERN.finditer(index_content)
     ]
+    index_entries.extend(
+        _normalize_href_to_stem(match.group("href"))
+        for match in GAMES_INDEX_CARD_PATTERN.finditer(index_content)
+    )
     index_set = {f"{name}.md" for name in index_entries if name}
 
     missing_in_index = sorted(stems - index_set)

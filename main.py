@@ -328,86 +328,30 @@ def define_env(env) -> None:
         return f'<div class="game-card__actions">{top_block}{details_block}</div>'
 
     @env.macro
-    def game_chips(bgg_id: str) -> str:
-        if not bgg_id:
-            return ""
+    def game_card(
+        bgg_id: str,
+        title: str,
+        description: str,
+        bgg_href: str,
+        summary_href: str,
+    ) -> str:
+        safe_description = html.escape(description) if description else ""
+        safe_bgg_href = html.escape(bgg_href, quote=True) if bgg_href else ""
 
-        fields = _extract_meta_fields(bgg_id)
-        if not isinstance(fields, dict):
-            return ""
-
-        chips: list[str] = []
-        if fields["players_text"]:
-            chips.append(
-                f'<span class="game-card__chip">'
-                f'<span class="game-card__chip-label">人数</span>{fields["players_text"]}'
-                "</span>"
-            )
-        if fields["time_text"]:
-            chips.append(
-                f'<span class="game-card__chip">'
-                f'<span class="game-card__chip-label">時間</span>{fields["time_text"]}'
-                "</span>"
-            )
-
-        if not chips:
-            return ""
-
-        data_attrs = (
-            f'data-bgg-id="{html.escape(fields["bgg_id"], quote=True)}" '
-            f'data-players-min="{_attr_int(fields["players_min"])}" '
-            f'data-players-max="{_attr_int(fields["players_max"])}" '
-            f'data-time-min="{_attr_int(fields["time_min"])}" '
-            f'data-time-max="{_attr_int(fields["time_max"])}" '
-            f'data-year="{_attr_int(fields["year"])}" '
-            f'data-min-age="{_attr_int(fields["min_age"])}"'
-        )
-        return f'<li class="game-card__meta-primary" {data_attrs}>{"".join(chips)}</li>'
-
-    @env.macro
-    def game_details(bgg_id: str) -> str:
-        if not bgg_id:
-            return ""
-
-        fields = _extract_meta_fields(bgg_id)
-        if not isinstance(fields, dict):
-            return ""
-
-        detail_items: list[str] = []
-        if isinstance(fields["year"], int):
-            detail_items.append(
-                '<li class="game-card__meta-inline">'
-                '<span class="game-card__meta-label">発売年</span>'
-                f'<span>{fields["year"]}</span>'
-                "</li>"
-            )
-
-        if isinstance(fields["min_age"], int) and fields["min_age"] > 0:
-            detail_items.append(
-                '<li class="game-card__meta-inline">'
-                '<span class="game-card__meta-label">対象年齢</span>'
-                f'<span>{fields["min_age"]}+</span>'
-                "</li>"
-            )
-
-        if fields["safe_designers"]:
-            detail_items.append(
-                '<li class="game-card__meta-inline">'
-                '<span class="game-card__meta-label">デザイナー</span>'
-                f'<span>{", ".join(fields["safe_designers"])}</span>'
-                "</li>"
-            )
-
-        if not detail_items:
-            return ""
+        bgg_link = ""
+        if safe_bgg_href:
+            bgg_link = f' (<a href="{safe_bgg_href}">BGG</a>)'
 
         return (
-            '<li class="game-card__meta-details">'
-            '<details class="game-card__details">'
-            '<summary class="game-card__details-summary">詳細情報</summary>'
-            '<ul class="game-card__meta-extra">'
-            f"{''.join(detail_items)}"
-            "</ul>"
-            "</details>"
-            "</li>"
+            '<article class="game-card">'
+            f'{game_cover(bgg_id, title, summary_href)}'
+            '<div class="game-card__body">'
+            '<h2 class="game-card__heading">'
+            f'<span class="game-card__title-icon" aria-hidden="true">{icon("material-train")}</span>'
+            f"{game_title(title, bgg_id)}"
+            "</h2>"
+            f'<p class="game-card__description">{safe_description}{bgg_link}</p>'
+            f"{game_actions(bgg_id, summary_href)}"
+            "</div>"
+            "</article>"
         )

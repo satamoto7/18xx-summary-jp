@@ -133,6 +133,46 @@ nav:
             )
             self.assertEqual(result.errors, [])
 
+    def test_run_validation_accepts_game_card_macro_entries(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            games = root / "docs" / "games"
+            _write(
+                games / "A.md",
+                """# A サマリー
+
+<div class="actions">
+  {{ print_button() }}
+  {{ download_link("A.txt") }}
+</div>
+
+=== "SR"
+=== "OR"
+=== "セットアップ / 早見"
+""",
+            )
+            _write(
+                games / ".pages",
+                """title: ゲーム一覧
+nav:
+  - index.md
+  - A.md
+""",
+            )
+            _write(
+                games / "index.md",
+                """# ゲーム一覧
+{{ game_card("1", "A", "Desc (test)", "https://boardgamegeek.com/boardgame/1", "A/") }}
+""",
+            )
+
+            result = run_validation(
+                games_dir=games,
+                pages_path=games / ".pages",
+                index_path=games / "index.md",
+            )
+            self.assertEqual(result.errors, [])
+
     def test_run_validation_detects_alignment_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
