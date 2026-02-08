@@ -37,4 +37,7 @@ extra_css:
   - stylesheets/extra.css
   - stylesheets/buttons.css
   - stylesheets/tabs.css
+  - stylesheets/game-filter.css
   - stylesheets/cards.css
+extra_javascript:
+  - javascripts/game-filter.js

@@ -337,13 +337,22 @@ def define_env(env) -> None:
     ) -> str:
         safe_description = html.escape(description) if description else ""
         safe_bgg_href = html.escape(bgg_href, quote=True) if bgg_href else ""
+        fields = _extract_meta_fields(bgg_id)
+
+        data_attrs = ' data-year="" data-players-min="" data-players-max=""'
+        if isinstance(fields, dict):
+            data_attrs = (
+                f' data-year="{_attr_int(fields["year"])}"'
+                f' data-players-min="{_attr_int(fields["players_min"])}"'
+                f' data-players-max="{_attr_int(fields["players_max"])}"'
+            )
 
         bgg_link = ""
         if safe_bgg_href:
             bgg_link = f' (<a href="{safe_bgg_href}">BGG</a>)'
 
         return (
-            '<article class="game-card">'
+            f'<article class="game-card"{data_attrs}>'
             f'{game_cover(bgg_id, title, summary_href)}'
             '<div class="game-card__body">'
             '<h2 class="game-card__heading">'
