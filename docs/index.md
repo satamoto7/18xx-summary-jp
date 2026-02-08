@@ -9,7 +9,7 @@
 
 1. 「ゲーム一覧を見る」から対象タイトルを選択します。
 2. 各ページで `SR` / `OR` / `セットアップ・早見` のタブを切り替えて確認します。
-3. 必要なら `:material-printer-outline:` 印刷ボタン、`:material-download-outline:` テキストDLを使います。
+3. 必要なら :material-printer-outline: 印刷ボタン、:material-download-outline: テキストDLを使います。
 
 ## :material-update: 更新方針
 
