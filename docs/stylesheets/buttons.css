@@ -1,0 +1,63 @@
+/* Button component system */
+
+.md-typeset .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--btn-min-height);
+  margin: 0;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--leading-tight);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              color var(--transition-base);
+}
+
+.md-typeset .btn:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--focus-ring-shadow);
+}
+
+/* Primary — filled brass/accent */
+.md-typeset .btn--primary {
+  background-color: var(--rail-brass);
+  border-color: var(--rail-brass-dark);
+  color: var(--accent-contrast);
+}
+
+.md-typeset .btn--primary:hover {
+  background-color: var(--rail-brass-dark);
+  border-color: var(--rail-brass-dark);
+  color: var(--accent-contrast);
+  text-decoration: none;
+}
+
+/* Outline — border only, transparent background */
+.md-typeset .btn--outline {
+  background-color: transparent;
+  border-color: var(--rail-brass);
+  color: var(--accent-hover);
+}
+
+.md-typeset .btn--outline:hover {
+  background-color: var(--tab-hover-bg);
+  border-color: var(--rail-brass-dark);
+  color: var(--accent-hover);
+  text-decoration: none;
+}
+
+/* Small size — for action bars */
+.md-typeset .btn--sm {
+  min-height: 2rem;
+  padding: 0.25rem 0.55rem;
+  font-size: var(--text-sm);
+}

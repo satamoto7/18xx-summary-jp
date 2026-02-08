@@ -1,0 +1,35 @@
+/* Tab theme customisation — overrides Material for MkDocs defaults */
+
+/* Tab label bar */
+.md-typeset .tabbed-labels {
+  border-bottom: 1px solid var(--tab-border-color);
+}
+
+/* Individual tab labels */
+.md-typeset .tabbed-labels > label {
+  font-weight: var(--tab-label-weight);
+  color: var(--text-muted);
+  transition: color var(--transition-base),
+              background-color var(--transition-base);
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  background-color: var(--tab-hover-bg);
+  color: var(--text);
+}
+
+/* Active tab label */
+.md-typeset .tabbed-labels > label.tabbed-labels--active,
+.md-typeset .tabbed-labels > .tabbed-alternate input:checked + label {
+  color: var(--tab-active-color);
+  background-color: var(--tab-active-bg);
+}
+
+/* Tab content panel */
+.md-typeset .tabbed-content {
+  border: 1px solid var(--tab-border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4);
+}

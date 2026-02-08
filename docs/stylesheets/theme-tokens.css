@@ -33,6 +33,54 @@
   --card-details-bg: #f0ede6;
   --card-details-header-bg: #d8dfe6;
   --focus-ring-shadow: rgba(176, 141, 87, 0.3);
+
+  /* Spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Border-radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.9rem;
+  --radius-pill: 999px;
+
+  /* Typography */
+  --text-xs: 0.72rem;
+  --text-sm: 0.85rem;
+  --text-base: 0.95rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.25rem;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --leading-tight: 1.25;
+  --leading-snug: 1.35;
+  --leading-normal: 1.45;
+  --leading-relaxed: 1.58;
+
+  /* Transition */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+
+  /* Button */
+  --btn-padding-y: 0.35rem;
+  --btn-padding-x: 0.7rem;
+  --btn-font-size: var(--text-base);
+  --btn-font-weight: var(--font-bold);
+  --btn-radius: var(--radius-md);
+  --btn-min-height: 2.5rem;
+
+  /* Tab */
+  --tab-border-color: var(--border);
+  --tab-active-color: var(--rail-brass);
+  --tab-active-bg: rgba(176, 141, 87, 0.08);
+  --tab-hover-bg: rgba(176, 141, 87, 0.05);
+  --tab-label-weight: var(--font-bold);
 }
 
 [data-md-color-scheme="default"] {

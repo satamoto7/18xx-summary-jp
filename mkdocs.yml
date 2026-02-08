@@ -35,4 +35,6 @@ extra_css:
   - stylesheets/theme-tokens.css
   - stylesheets/theme-components.css
   - stylesheets/extra.css
+  - stylesheets/buttons.css
+  - stylesheets/tabs.css
   - stylesheets/cards.css

@@ -189,7 +189,7 @@ def define_env(env) -> None:
 
     @env.macro
     def print_button() -> str:
-        return '<button onclick="window.print()">印刷</button>'
+        return '<button class="btn btn--outline btn--sm" onclick="window.print()">印刷</button>'
 
     @env.macro
     def icon(name: str) -> str:
@@ -203,7 +203,7 @@ def define_env(env) -> None:
             return ""
         safe_name = html.escape(filename, quote=True)
         href = f"../../assets/{safe_name}"
-        return f'<a class="action-link" href="{href}" download>テキストDL</a>'
+        return f'<a class="btn btn--outline btn--sm" href="{href}" download>テキストDL</a>'
 
     @env.macro
     def game_title(title: str, bgg_id: str) -> str:
@@ -311,7 +311,7 @@ def define_env(env) -> None:
         cta_block = ""
         if safe_href:
             cta_block = (
-                f'<a class="md-button md-button--primary game-card__cta" href="{safe_href}">'
+                f'<a class="btn btn--primary game-card__cta" href="{safe_href}">'
                 f'{_material_icon("material-file-document-outline", "game-card__cta-icon")}'
                 '<span class="game-card__cta-label">サマリーを見る</span>'
                 "</a>"
