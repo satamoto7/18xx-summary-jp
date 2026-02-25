@@ -200,6 +200,29 @@
     },
     "year_published": 2026
   },
+  "381671": {
+    "cover": {
+      "height": 640,
+      "path": "assets/game-covers/381671.webp",
+      "source": "image",
+      "width": 480
+    },
+    "designers": [
+      "Kayla Ross",
+      "Denman Scofield"
+    ],
+    "min_age": 14,
+    "name": "18RoyalGorge: The Rails of Fremont County and the Royal Gorge Wars",
+    "players": {
+      "max": 4,
+      "min": 2
+    },
+    "playing_time": {
+      "max": 180,
+      "min": 120
+    },
+    "year_published": 2025
+  },
   "66837": {
     "cover": {
       "height": 499,
