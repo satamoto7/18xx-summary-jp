@@ -11,6 +11,7 @@
   {{ game_card("245532", "18GB", "グレートブリテン島全土を扱った作品。線路タイルのアップグレードに一癖あり、中央地帯の経路確保が熱いです。", "https://boardgamegeek.com/boardgame/245532/18gb-the-railways-of-great-britain", "18GB/") }}
   {{ game_card("344937", "18India", "インドの鉄道網発展をテーマにした作品。1829 Mainlineに着想を得ており、株式はあらかじめ決まった順序で購入していくことになります。フェイズの進行と線路タイルのアップデートが連動していなかったり、会社の資産も最後株価に影響を与えるなど、特徴的なルールがいくつか存在します。", "https://boardgamegeek.com/boardgame/344937/18-india", "18India/") }}
   {{ game_card("196217", "18Ireland", "アイルランドを舞台にした作品。経済規模が小さく、狭軌路線でうまく都市の収益を確保するのも重要ですが、それ以外でも合併が社長の一存で決まらないことや、枚数が制限されたタイルセットになっていることで緊張感のあるゲームとなることもあります。", "https://boardgamegeek.com/boardgame/196217/18ireland", "18Ireland/") }}
+  {{ game_card("381671", "18RG", "ロッキー山脈周辺を舞台に、鉄鋼市場（CF&I）と金輸送が収益に影響する18xx作品です。", "https://boardgamegeek.com/boardgame/381671/18royalgorge-the-rails-of-fremont-county-and-the-r", "18RG_%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC/") }}
   {{ game_card("328237", "18SJ", "スウェーデンの鉄道網拡大と、寒冷地ならではの運営がテーマです。ルールはシンプルなほうですが、1830式と1846式の資金注入方法が混ざったようなシステムになっており、ちょっとしたひねりが効いています。", "https://boardgamegeek.com/boardgame/328237/18sj-railways-in-the-frozen-north", "18SJ/") }}
 </section>
 
