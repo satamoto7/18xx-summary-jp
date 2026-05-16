@@ -6,6 +6,7 @@
   {{ game_card("12750", "1860", "ワイト島を舞台にした作品。会社の登場順が固定や独特なルート計算がありますが、ルート構築に主眼が置かれた作品です。最終盤は国鉄による国有化がゲーム終了のシークエンスとして用意されており、それに向けた高収益な会社を用意できるか、その株式を保有できているかがゲーム終了の鍵となることもあります。2人プレイも評価が高いタイトルです。", "https://boardgamegeek.com/boardgame/12750/1860-railways-on-the-isle-of-wight", "1860/") }}
   {{ game_card("66837", "1862", "イースト・アングリア地方を舞台にしたゲーム。都市とドットのみで構成された狭いマップに多くの会社がひしめき合っているのが特徴。3種類の列車（ローカル、貨物、急行）や、このゲーム特有の路線収益の数え方に慣れているプレイヤーほど戸惑うかもしれません。会社の出現順や、どの列車を扱えるかがランダムに決定されるため、毎ゲーム異なる展開が楽しめます。", "https://boardgamegeek.com/boardgame/66837/1862-railway-mania-in-the-eastern-counties", "1862/") }}
   {{ game_card("28944", "1873", "ドイツのハルツ山地が舞台。鉱山会社と鉄道会社の運営が絡み合う独特なシステムを持ちます。18xxのゲームとしてはかなり特殊な部類に入ります。", "https://boardgamegeek.com/boardgame/28944/harzbahn-1873", "1873/") }}
+  {{ game_card("28944", "1873 Harzbahn Aid アップグレード版", "1873 ハルツバーンの非公式プレイエイド。疑義がある場合は英語ルール本文を優先してください。", "https://boardgamegeek.com/boardgame/28944/harzbahn-1873", "1873_Harzbahn_v2/") }}
   {{ game_card("69601", "1880", "舞台は中国。会社の運行順序が設立株価に基づいて固定、株式ラウンドの開始タイミングが各種類の列車の売切れタイミングに左右されるなど かなり玄人志向な作品です。", "https://boardgamegeek.com/boardgame/69601/1880-china", "1880/") }}
   {{ game_card("253608", "18Chesapeake", "アメリカのチェサピーク湾岸地域が舞台。ルールは1830ベースながらも、列車の輸出システムを採用していることにより、慣れていないグループでもゲームが前に進みやすいです。プレイ時間も比較的短く、初心者向けの18xxとして設計されています。", "https://boardgamegeek.com/boardgame/253608/18chesapeake", "18Chesapeake/") }}
   {{ game_card("245532", "18GB", "グレートブリテン島全土を扱った作品。線路タイルのアップグレードに一癖あり、中央地帯の経路確保が熱いです。", "https://boardgamegeek.com/boardgame/245532/18gb-the-railways-of-great-britain", "18GB/") }}
@@ -13,6 +14,7 @@
   {{ game_card("196217", "18Ireland", "アイルランドを舞台にした作品。経済規模が小さく、狭軌路線でうまく都市の収益を確保するのも重要ですが、それ以外でも合併が社長の一存で決まらないことや、枚数が制限されたタイルセットになっていることで緊張感のあるゲームとなることもあります。", "https://boardgamegeek.com/boardgame/196217/18ireland", "18Ireland/") }}
   {{ game_card("381671", "18RG", "ロッキー山脈周辺を舞台に、鉄鋼市場（CF&I）と金輸送が収益に影響する18xx作品です。", "https://boardgamegeek.com/boardgame/381671/18royalgorge-the-rails-of-fremont-county-and-the-r", "18RG_%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC/") }}
   {{ game_card("328237", "18SJ", "スウェーデンの鉄道網拡大と、寒冷地ならではの運営がテーマです。ルールはシンプルなほうですが、1830式と1846式の資金注入方法が混ざったようなシステムになっており、ちょっとしたひねりが効いています。", "https://boardgamegeek.com/boardgame/328237/18sj-railways-in-the-frozen-north", "18SJ/") }}
+  {{ game_card("298154", "Rolling Stock Stars", "18xx風の株式・会社運営をカードだけで扱う作品。マップや列車運行はなく、会社の競り、企業化、子会社買収、シナジー、株価調整、管財状態がゲームの中心になります。会社山札の進行により所有コストが重くなり、古い会社をどう処理するかが終盤の焦点になります。", "https://boardgamegeek.com/boardgame/298154/rolling-stock-stars", "RollingStockStars/") }}
 </section>
 
 （今後もゲームタイトルは増やしていく予定です。）
