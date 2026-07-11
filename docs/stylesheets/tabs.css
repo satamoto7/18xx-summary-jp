@@ -5,6 +5,12 @@
   border-bottom: 1px solid var(--tab-border-color);
 }
 
+@media screen and (max-width: 44.984375em) {
+  .md-content__inner > .tabbed-set .tabbed-labels {
+    max-width: calc(100% + 1.6rem);
+  }
+}
+
 /* Individual tab labels */
 .md-typeset .tabbed-labels > label {
   font-weight: var(--tab-label-weight);

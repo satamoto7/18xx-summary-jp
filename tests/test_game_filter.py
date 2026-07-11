@@ -86,6 +86,18 @@ class GameCardDataAttributesTests(unittest.TestCase):
         self.assertIn('data-players-min="3"', html)
         self.assertIn('data-players-max="4"', html)
 
+    def test_game_card_emits_title_link(self):
+        meta = {"999": {"players": {"min": 2, "max": 4}}}
+        macros, tmp_path = _load_macros_with_meta(meta)
+        self._tmp_path = tmp_path
+
+        html = macros["game_card"](
+            "999", "Test Title", "Test Description", "https://example.com", "Test/"
+        )
+
+        self.assertIn('class="game-card__title-link"', html)
+        self.assertIn('href="Test/"', html)
+
 
 if __name__ == "__main__":
     unittest.main()

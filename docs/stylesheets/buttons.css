@@ -61,3 +61,12 @@
   padding: 0.25rem 0.55rem;
   font-size: var(--text-sm);
 }
+
+@media screen and (max-width: 48rem) {
+  .md-typeset .actions .btn,
+  .md-typeset .actions .action-link {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}

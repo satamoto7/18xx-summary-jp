@@ -1,5 +1,7 @@
 site_name: 18xx サマリー
 site_description: 18xx のルール要点（SR/OR/その他）をスマホで読みやすく整理したサマリー集
+exclude_docs: |
+  _template.md
 theme:
   name: material
   language: ja
@@ -12,6 +14,7 @@ theme:
     - navigation.indexes
     - navigation.sections
     - navigation.tracking
+    - navigation.top
     - toc.follow
 plugins:
   - search
@@ -39,5 +42,7 @@ extra_css:
   - stylesheets/tabs.css
   - stylesheets/game-filter.css
   - stylesheets/cards.css
+  - stylesheets/summary-navigation.css
 extra_javascript:
   - javascripts/game-filter.js
+  - javascripts/summary-navigation.js

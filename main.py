@@ -206,7 +206,7 @@ def define_env(env) -> None:
         return f'<a class="btn btn--outline btn--sm" href="{href}" download>テキストDL</a>'
 
     @env.macro
-    def game_title(title: str, bgg_id: str) -> str:
+    def game_title(title: str, bgg_id: str, href: str = "") -> str:
         safe_title = html.escape(title) if title else ""
         year_badge = ""
         fields = _extract_meta_fields(bgg_id)
@@ -217,10 +217,16 @@ def define_env(env) -> None:
                 f'{fields["year"]}'
                 "</span>"
             )
-        return (
+        title_html = (
             f'<span class="game-card__title-text">{safe_title}</span>'
             f"{year_badge}"
         )
+        if not href:
+            return title_html
+
+        safe_href = html.escape(href, quote=True)
+        aria_label = html.escape(f"{title} サマリーを見る", quote=True) if title else "サマリーを見る"
+        return f'<a class="game-card__title-link" href="{safe_href}" aria-label="{aria_label}">{title_html}</a>'
 
     @env.macro
     def game_cover(bgg_id: str, title: str, href: str = "") -> str:
@@ -357,7 +363,7 @@ def define_env(env) -> None:
             '<div class="game-card__body">'
             '<h2 class="game-card__heading">'
             f'<span class="game-card__title-icon" aria-hidden="true">{icon("material-train")}</span>'
-            f"{game_title(title, bgg_id)}"
+            f"{game_title(title, bgg_id, summary_href)}"
             "</h2>"
             f'<p class="game-card__description">{safe_description}{bgg_link}</p>'
             f"{game_actions(bgg_id, summary_href)}"

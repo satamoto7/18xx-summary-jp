@@ -3,7 +3,7 @@
 18xxボードゲームのルール要点を、スマートフォンでも見やすく整理したサマリー集です。
 プレイ中の確認と、必要に応じた印刷・テキストDLに対応しています。
 
-[:material-view-grid: ゲーム一覧を見る](games/){ .btn .btn--primary }
+[:material-view-grid: ゲーム一覧を見る](games/index.md){ .btn .btn--primary }
 
 ## :material-compass-outline: 使い方
 
