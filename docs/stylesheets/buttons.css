@@ -1,72 +1,106 @@
-/* Button component system */
+/* SIGNAL INDEX button and action system */
 
-.md-typeset .btn {
+.md-typeset .btn,
+.md-typeset .actions .action-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
   min-height: var(--btn-min-height);
+  box-sizing: border-box;
   margin: 0;
   padding: var(--btn-padding-y) var(--btn-padding-x);
-  border: 1px solid transparent;
+  border: var(--rule-thin) solid transparent;
   border-radius: var(--btn-radius);
+  font-family: var(--font-label);
   font-size: var(--btn-font-size);
   font-weight: var(--btn-font-weight);
-  line-height: var(--leading-tight);
+  line-height: 1;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--transition-base),
-              border-color var(--transition-base),
-              color var(--transition-base);
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
-.md-typeset .btn:focus-visible {
-  outline: 2px solid var(--accent-hover);
+.md-typeset .btn:focus-visible,
+.md-typeset .actions .action-link:focus-visible {
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px var(--focus-ring-shadow);
+  box-shadow: 0 0 0 3px var(--color-focus-halo);
 }
 
-/* Primary — filled brass/accent */
 .md-typeset .btn--primary {
-  background-color: var(--rail-brass);
-  border-color: var(--rail-brass-dark);
-  color: var(--accent-contrast);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
 }
 
 .md-typeset .btn--primary:hover {
-  background-color: var(--rail-brass-dark);
-  border-color: var(--rail-brass-dark);
-  color: var(--accent-contrast);
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-ink);
   text-decoration: none;
 }
 
-/* Outline — border only, transparent background */
-.md-typeset .btn--outline {
-  background-color: transparent;
-  border-color: var(--rail-brass);
-  color: var(--accent-hover);
+.md-typeset .btn--primary:active {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper-raised);
 }
 
-.md-typeset .btn--outline:hover {
-  background-color: var(--tab-hover-bg);
-  border-color: var(--rail-brass-dark);
-  color: var(--accent-hover);
+.md-typeset .btn--outline,
+.md-typeset .actions .action-link {
+  background: var(--color-paper-raised);
+  border-color: var(--color-rule-strong);
+  color: var(--color-ink-2);
+}
+
+.md-typeset .btn--outline:hover,
+.md-typeset .actions .action-link:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent-hover);
   text-decoration: none;
 }
 
-/* Small size — for action bars */
+.md-typeset .btn--outline:active,
+.md-typeset .actions .action-link:active {
+  background: var(--color-paper-active);
+  border-color: var(--color-accent-hover);
+  color: var(--color-ink);
+}
+
+.md-typeset .btn:disabled,
+.md-typeset .btn[aria-disabled="true"],
+.md-typeset .actions .action-link[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .md-typeset .btn--sm {
-  min-height: 2rem;
-  padding: 0.25rem 0.55rem;
-  font-size: var(--text-sm);
+  min-height: 2.25rem;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.md-typeset .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.md-typeset .btn .twemoji,
+.md-typeset .actions .twemoji {
+  width: 1em;
+  height: 1em;
 }
 
 @media screen and (max-width: 48rem) {
   .md-typeset .actions .btn,
   .md-typeset .actions .action-link {
-    min-height: 2.75rem;
-    display: inline-flex;
-    align-items: center;
+    min-height: var(--touch-height);
   }
 }

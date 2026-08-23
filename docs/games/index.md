@@ -1,6 +1,15 @@
 # ゲーム一覧
 
 <section class="game-list" aria-label="ゲーム一覧">
+  <div class="game-list__columns" aria-hidden="true">
+    <span></span>
+    <span>ゲーム名</span>
+    <span>年</span>
+    <span>人数</span>
+    <span>時間</span>
+    <span>デザイナー</span>
+    <span></span>
+  </div>
   {{ game_card("362222", "1807 The Big four", "イギリス全土を舞台にした18xxゲーム。Big Fourと呼ばれる4大鉄道会社への統合をテーマにしており。1861の拡大版とも言える作品。マイナー会社の合併、昇格、大会社のマイナー会社の買収に加えて、大会社をさらに合併させてシステムといわれる大型の会社にできるのが特徴。", "https://boardgamegeek.com/boardgame/362222/1807-the-big-four", "1807%20The%20Big%20four/") }}
   {{ game_card("360242", "1822PNW", "アメリカ太平洋岸北西部（Pacific Northwest）を舞台にした、1822の派生作品では比較的短めの作品。1822系列らしくマイナー会社同士のシナジーや、入札によるマイナー会社・プライベートカンパニーの獲得が特徴です。", "https://boardgamegeek.com/boardgame/360242/1822pnw", "1822PNW/") }}
   {{ game_card("12750", "1860", "ワイト島を舞台にした作品。会社の登場順が固定や独特なルート計算がありますが、ルート構築に主眼が置かれた作品です。最終盤は国鉄による国有化がゲーム終了のシークエンスとして用意されており、それに向けた高収益な会社を用意できるか、その株式を保有できているかがゲーム終了の鍵となることもあります。2人プレイも評価が高いタイトルです。", "https://boardgamegeek.com/boardgame/12750/1860-railways-on-the-isle-of-wight", "1860/") }}
@@ -17,7 +26,6 @@
   {{ game_card("298154", "Rolling Stock Stars", "18xx風の株式・会社運営をカードだけで扱う作品。マップや列車運行はなく、会社の競り、企業化、子会社買収、シナジー、株価調整、管財状態がゲームの中心になります。会社山札の進行により所有コストが重くなり、古い会社をどう処理するかが終盤の焦点になります。", "https://boardgamegeek.com/boardgame/298154/rolling-stock-stars", "RollingStockStars/") }}
 </section>
 
-（今後もゲームタイトルは増やしていく予定です。）
-
+<p class="game-list__note">（今後もゲームタイトルは増やしていく予定です。）</p>
 
 

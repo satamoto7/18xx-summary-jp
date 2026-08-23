@@ -38,6 +38,17 @@
     return index >= 0 ? index : 0;
   }
 
+  function syncActiveLabel(context) {
+    context.labelElements.forEach((label, index) => {
+      label.classList.toggle("is-active", index === context.activeIndex);
+      if (index === context.activeIndex) {
+        label.setAttribute("aria-current", "true");
+      } else {
+        label.removeAttribute("aria-current");
+      }
+    });
+  }
+
   function selectTab(context, index) {
     const input = context.inputs[index];
     if (!input) {
@@ -45,6 +56,7 @@
     }
     input.checked = true;
     context.activeIndex = index;
+    syncActiveLabel(context);
     writeStored(context, "active", index);
     renderNavigation(context);
     updateScrollableTables();
@@ -202,6 +214,7 @@
   }
 
   function updateScrollableTables() {
+    labelTabbedButtons();
     Array.from(document.querySelectorAll(".md-typeset__table")).forEach((wrapper) => {
       const rect = wrapper.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) {
@@ -223,12 +236,29 @@
     });
   }
 
+  function labelTabbedButtons() {
+    document.querySelectorAll(".md-typeset .tabbed-control .tabbed-button").forEach((button) => {
+      const control = button.closest(".tabbed-control");
+      const isPrevious = control && control.classList.contains("tabbed-control--prev");
+      const label = isPrevious ? "前のタブを表示" : "次のタブを表示";
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
+      if (control && control.hidden) {
+        button.setAttribute("aria-hidden", "true");
+        button.tabIndex = -1;
+      } else {
+        button.removeAttribute("aria-hidden");
+        button.tabIndex = 0;
+      }
+    });
+  }
+
   function createContext(set, index) {
     const inputs = Array.from(set.querySelectorAll(':scope > input[type="radio"]'));
     const content = set.querySelector(":scope > .tabbed-content");
     const blocks = content ? Array.from(content.querySelectorAll(":scope > .tabbed-block")) : [];
-    const labels = Array.from(set.querySelectorAll(":scope > .tabbed-labels > label"))
-      .map((label) => label.textContent.trim());
+    const labelElements = Array.from(set.querySelectorAll(":scope > .tabbed-labels > label"));
+    const labels = labelElements.map((label) => label.textContent.trim());
     if (inputs.length === 0 || inputs.length !== blocks.length) {
       return null;
     }
@@ -238,6 +268,7 @@
       inputs,
       blocks,
       labels: labels.length === inputs.length ? labels : inputs.map((_, itemIndex) => `タブ${itemIndex + 1}`),
+      labelElements,
       content,
       activeIndex: 0,
       entries: [],
@@ -246,6 +277,7 @@
   }
 
   function initSummaryNavigation() {
+    labelTabbedButtons();
     const contexts = Array.from(document.querySelectorAll(".md-typeset .tabbed-set"))
       .map((set, index) => set._summaryNavigationContext || createContext(set, index))
       .filter(Boolean);
@@ -257,6 +289,7 @@
       context.set.setAttribute(READY_ATTR, "true");
       context.set._summaryNavigationContext = context;
       context.activeIndex = activeIndex(context);
+      syncActiveLabel(context);
       context.entries = buildEntries(context);
       createNavigation(context);
       const savedActive = Number.parseInt(readStored(context, "active") || "", 10);
@@ -266,21 +299,44 @@
       }
 
       context.inputs.forEach((input, index) => {
+        input.addEventListener("focus", () => {
+          context.labelElements[index]?.classList.add("is-focus-visible");
+        });
+        input.addEventListener("blur", () => {
+          context.labelElements[index]?.classList.remove("is-focus-visible");
+        });
         input.addEventListener("change", () => {
           if (!input.checked || context.activeIndex === index) {
             return;
           }
           saveScroll(context);
           context.activeIndex = index;
+          syncActiveLabel(context);
           writeStored(context, "active", index);
           renderNavigation(context);
           restoreScroll(context, index);
           updateScrollableTables();
         });
       });
+
+      context.labelElements.forEach((label, index) => {
+        label.addEventListener("click", (event) => {
+          event.preventDefault();
+          const input = context.inputs[index];
+          if (!input) {
+            return;
+          }
+          if (!input.checked) {
+            input.checked = true;
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          input.focus({ preventScroll: true });
+        });
+      });
     });
 
     currentContexts = contexts;
+    document.body.classList.toggle("has-summary-navigation", contexts.length > 0);
     if (!hashHandlerAttached) {
       window.addEventListener("hashchange", () => openHashTarget(currentContexts));
       hashHandlerAttached = true;

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "run": "signal-index",
+  "framework": "MkDocs + Material for MkDocs",
+  "pages": [
+    {"family": "home", "path": "docs/index.md", "macrostructure": "index-first"},
+    {"family": "catalogue", "path": "docs/games/index.md", "macrostructure": "tabular-index"},
+    {"family": "summary", "path": "docs/games/*.md", "macrostructure": "reference-workbench"}
+  ],
+  "theme": "signal-index",
+  "genre": "modern-minimal",
+  "motion": "motion-cut",
+  "enrichment": "existing game-cover thumbnails only",
+  "existingAssets": [
+    "docs/assets/game-covers/*.webp",
+    "docs/assets/powered-by-bgg-rgb.svg"
+  ],
+  "protected": [
+    "docs/stylesheets/extra.css",
+    "docs/assets/*",
+    ".github/workflows/*",
+    "docs/games/*.md rule content"
+  ],
+  "approvedChanges": [
+    "mkdocs.yml",
+    "shared site shell",
+    "home and catalogue structure",
+    "shared summary presentation",
+    "tests"
+  ]
+}

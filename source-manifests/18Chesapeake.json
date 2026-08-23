@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "game": "18Chesapeake",
+  "site_page": "docs/games/18Chesapeake.md",
+  "resource_project": "18Chesapeake",
+  "edition_boundary": "All-Aboard Games English Rules (2020-08-13) basic game + official errata",
+  "official_sources_last_checked": "2026-08-24",
+  "content_authority": "resource-ledger",
+  "inputs": {
+    "source_inventory": "source-inventory.md",
+    "rule_ledger": "rule-ledger.csv",
+    "action_owner_map": "action-owner-map.md",
+    "rulebook_outline": "rulebook-outline.md",
+    "uncertainty_register": "uncertainty-register.csv"
+  },
+  "readiness": {
+    "status": "ready",
+    "blocking_issues": [],
+    "open_issues": [],
+    "notes": "All six audit issues were resolved upstream on 2026-08-24. The canonical rule-ledger.csv contains 79 stable, source-located rows covering auction, SR, OR, setup/reference, and ending rules."
+  },
+  "publication": {
+    "state": "approved",
+    "last_compared_to_site": "2026-08-24",
+    "section_coverage": {
+      "SR": {
+        "included_rule_ids": [
+          "18CH-AUC-001",
+          "18CH-AUC-002",
+          "18CH-AUC-003",
+          "18CH-AUC-004",
+          "18CH-AUC-005",
+          "18CH-AUC-006",
+          "18CH-AUC-007",
+          "18CH-AUC-008",
+          "18CH-AUC-009",
+          "18CH-SR-001",
+          "18CH-SR-002",
+          "18CH-SR-003",
+          "18CH-SR-004",
+          "18CH-SR-005",
+          "18CH-SR-006",
+          "18CH-SR-007",
+          "18CH-SR-008",
+          "18CH-SR-009",
+          "18CH-SR-009A",
+          "18CH-SR-010",
+          "18CH-SR-011",
+          "18CH-SR-012",
+          "18CH-SR-013",
+          "18CH-SR-014",
+          "18CH-SR-015",
+          "18CH-SR-016"
+        ],
+        "omitted_rule_ids": [],
+        "correction_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "approved"
+      },
+      "OR": {
+        "included_rule_ids": [
+          "18CH-RS-001",
+          "18CH-OR-001",
+          "18CH-OR-002",
+          "18CH-OR-003",
+          "18CH-OR-003A",
+          "18CH-OR-004",
+          "18CH-OR-004A",
+          "18CH-OR-004B",
+          "18CH-OR-005",
+          "18CH-OR-006",
+          "18CH-OR-007",
+          "18CH-OR-007A",
+          "18CH-OR-007B",
+          "18CH-OR-008",
+          "18CH-OR-008A",
+          "18CH-OR-008B",
+          "18CH-OR-008C",
+          "18CH-OR-009",
+          "18CH-OR-009A",
+          "18CH-OR-009B",
+          "18CH-OR-009C",
+          "18CH-OR-010",
+          "18CH-OR-011",
+          "18CH-OR-011A",
+          "18CH-OR-011B",
+          "18CH-OR-011C",
+          "18CH-OR-012",
+          "18CH-OR-013",
+          "18CH-END-001A",
+          "18CH-END-001B",
+          "18CH-END-002",
+          "18CH-END-003"
+        ],
+        "omitted_rule_ids": [
+          "18CH-END-001"
+        ],
+        "correction_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "omission_reasons": {
+          "18CH-END-001": "条件別の18CH-END-001A/Bと破産時の18CH-END-002へ分解済みの上位要約なので、本文では重複掲載しない。"
+        },
+        "status": "approved"
+      },
+      "SETUP_REFERENCE": {
+        "included_rule_ids": [
+          "18CH-SET-001",
+          "18CH-SET-002",
+          "18CH-SET-003",
+          "18CH-SR-009",
+          "18CH-PRIV-001",
+          "18CH-PRIV-002",
+          "18CH-PRIV-003",
+          "18CH-PRIV-004",
+          "18CH-PRIV-005",
+          "18CH-PRIV-006",
+          "18CH-PH-002",
+          "18CH-PH-003",
+          "18CH-PH-004",
+          "18CH-PH-005",
+          "18CH-PH-006",
+          "18CH-PH-D",
+          "18CH-TR-002",
+          "18CH-TR-003",
+          "18CH-TR-004",
+          "18CH-TR-005",
+          "18CH-TR-006",
+          "18CH-TR-D"
+        ],
+        "omitted_rule_ids": [],
+        "correction_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "approved"
+      }
+    },
+    "approved_rulings": [],
+    "notes": "The user approved the first resource-derived replacement on 2026-08-24 after reviewing notes/site-source-audits/18Chesapeake.md. The published replacement consumes the canonical 80-row upstream rule ledger and passed the full site check."
+  }
+}

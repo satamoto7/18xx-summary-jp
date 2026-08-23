@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "game": "GAME_NAME",
+  "site_page": "docs/games/GAME_NAME.md",
+  "resource_project": "GAME_NAME",
+  "edition_boundary": "OFFICIAL EDITION + ERRATA BOUNDARY",
+  "official_sources_last_checked": "YYYY-MM-DD",
+  "content_authority": "resource-ledger",
+  "inputs": {
+    "source_inventory": "source-inventory.md",
+    "rule_ledger": "sr-or-rule-ledger.csv",
+    "action_owner_map": "action-owner-map.md",
+    "rulebook_outline": "rulebook-outline.md",
+    "uncertainty_register": "uncertainty-register.csv"
+  },
+  "readiness": {
+    "status": "blocked",
+    "blocking_issues": ["REPLACE_ME"],
+    "open_issues": [],
+    "notes": ""
+  },
+  "publication": {
+    "state": "not_audited",
+    "last_compared_to_site": null,
+    "section_coverage": {
+      "SR": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "not_audited"
+      },
+      "OR": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "not_audited"
+      },
+      "SETUP_REFERENCE": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "not_audited"
+      }
+    },
+    "approved_rulings": [],
+    "notes": ""
+  }
+}

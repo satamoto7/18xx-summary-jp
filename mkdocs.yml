@@ -36,6 +36,7 @@ markdown_extensions:
       alternate_style: true
 extra_css:
   - stylesheets/theme-tokens.css
+  - stylesheets/site-shell.css
   - stylesheets/theme-components.css
   - stylesheets/extra.css
   - stylesheets/buttons.css
@@ -44,5 +45,6 @@ extra_css:
   - stylesheets/cards.css
   - stylesheets/summary-navigation.css
 extra_javascript:
+  - javascripts/site-shell.js
   - javascripts/game-filter.js
   - javascripts/summary-navigation.js

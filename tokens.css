@@ -1,0 +1,78 @@
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · genre: modern-minimal · macrostructure: index-first/catalogue/reference-workbench · theme: signal-index · enrichment: none · nav: N9 · footer: Ft2 · contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50–57) */
+:root {
+  color-scheme: light;
+
+  /* Color */
+  --color-paper: oklch(98.2% 0.006 250);
+  --color-paper-raised: oklch(100% 0 0);
+  --color-paper-muted: oklch(95.5% 0.01 250);
+  --color-paper-active: oklch(93.5% 0.035 258);
+  --color-ink: oklch(19% 0.024 258);
+  --color-ink-2: oklch(30% 0.022 258);
+  --color-muted: oklch(48% 0.018 255);
+  --color-subtle: oklch(55% 0.015 255);
+  --color-rule: oklch(86% 0.012 250);
+  --color-rule-strong: oklch(69% 0.018 252);
+  --color-accent: oklch(52% 0.205 261);
+  --color-accent-hover: oklch(44% 0.19 261);
+  --color-accent-soft: oklch(94% 0.045 260);
+  --color-on-accent: oklch(99% 0.004 255);
+  --color-accent-ink: oklch(99% 0.004 255);
+  --color-focus-halo: oklch(52% 0.205 261 / 0.22);
+  --color-positive: oklch(48% 0.12 151);
+  --color-warning: oklch(61% 0.14 76);
+  --color-danger: oklch(52% 0.18 28);
+  --color-shadow: oklch(19% 0.024 258 / 0.14);
+
+  /* Typography */
+  --font-display: "Bahnschrift", "DIN Alternate", "Arial Narrow", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  --font-label: var(--font-display);
+  --font-weight-regular: 400;
+  --font-weight-medium: 550;
+  --font-weight-bold: 700;
+  --font-weight-heavy: 780;
+  --text-xs: 0.72rem;
+  --text-sm: 0.82rem;
+  --text-base: 0.94rem;
+  --text-lg: 1.08rem;
+  --text-xl: 1.34rem;
+  --text-2xl: 1.8rem;
+  --text-3xl: clamp(2.15rem, 4.5vw, 3.8rem);
+  --leading-tight: 1.15;
+  --leading-snug: 1.32;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.72;
+
+  /* 4 px spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Geometry */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-pill: 999px;
+  --rule-thin: 1px;
+  --control-height: 2.5rem;
+  --touch-height: 2.75rem;
+  --header-height: 3.25rem;
+  --page-max: 88rem;
+  --measure: 68ch;
+
+  /* Motion and elevation */
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --transition-fast: var(--duration-fast) var(--ease-standard);
+  --transition-base: var(--duration-base) var(--ease-standard);
+  --shadow-overlay: 0 0.75rem 2.5rem var(--color-shadow);
+}

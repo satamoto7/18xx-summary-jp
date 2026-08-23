@@ -83,6 +83,22 @@ class TransitionTokenTests(unittest.TestCase):
                 )
 
 
+class ColorTokenTests(unittest.TestCase):
+    def setUp(self):
+        self.css = _read_tokens()
+
+    def test_signal_index_color_tokens_use_oklch(self):
+        definitions = re.findall(
+            r"^\s*(--color-[a-z0-9-]+)\s*:\s*([^;]+);",
+            self.css,
+            re.MULTILINE,
+        )
+        self.assertGreaterEqual(len(definitions), 12)
+        for name, value in definitions:
+            with self.subTest(token=name):
+                self.assertTrue(value.strip().startswith("oklch("), f"{name} must use OKLCH")
+
+
 class ButtonTokenTests(unittest.TestCase):
     def setUp(self):
         self.css = _read_tokens()

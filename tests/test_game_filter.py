@@ -55,6 +55,9 @@ class GameCardDataAttributesTests(unittest.TestCase):
         self.assertIn('data-year="2020"', html)
         self.assertIn('data-players-min="2"', html)
         self.assertIn('data-players-max="5"', html)
+        self.assertIn('data-time-min=""', html)
+        self.assertIn('class="game-card__facts"', html)
+        self.assertIn("2020", html)
 
     def test_game_card_has_empty_data_attributes_when_meta_missing(self):
         macros, tmp_path = _load_macros_with_meta({})
@@ -97,6 +100,29 @@ class GameCardDataAttributesTests(unittest.TestCase):
 
         self.assertIn('class="game-card__title-link"', html)
         self.assertIn('href="Test/"', html)
+        self.assertIn('class="game-card__open"', html)
+
+    def test_game_card_emits_comparison_facts(self):
+        meta = {
+            "999": {
+                "players": {"min": 2, "max": 4},
+                "playing_time": {"min": 120, "max": 180},
+                "year_published": 2021,
+                "designers": ["Designer One"],
+            }
+        }
+        macros, tmp_path = _load_macros_with_meta(meta)
+        self._tmp_path = tmp_path
+
+        html = macros["game_card"](
+            "999", "Test Title", "Test Description", "https://example.com", "Test/"
+        )
+
+        self.assertIn("2-4人", html)
+        self.assertIn("120-180分", html)
+        self.assertIn("Designer One", html)
+        self.assertIn('data-time-min="120"', html)
+        self.assertIn('data-time-max="180"', html)
 
 
 if __name__ == "__main__":

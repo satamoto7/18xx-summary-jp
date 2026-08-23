@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "game": "1862",
+  "site_page": "docs/games/1862.md",
+  "resource_project": "1862",
+  "edition_boundary": "GMT Games Final Rules (2019) standard game + official errata + official Payout Track patch",
+  "official_sources_last_checked": "2026-08-20",
+  "content_authority": "resource-ledger",
+  "inputs": {
+    "source_inventory": "source-inventory.md",
+    "rule_ledger": "sr-or-rule-ledger.csv",
+    "action_owner_map": "action-owner-map.md",
+    "rulebook_outline": "rulebook-outline.md",
+    "uncertainty_register": "uncertainty-register.csv"
+  },
+  "readiness": {
+    "status": "conditional",
+    "blocking_issues": [],
+    "open_issues": [
+      "1862-U-001",
+      "1862-U-002"
+    ],
+    "notes": "Official tie handling is unspecified and must be presented as official silence or an approved pre-game ruling. The official errata URL was checked, but its local original and hash remain missing."
+  },
+  "publication": {
+    "state": "legacy_not_audited",
+    "last_compared_to_site": null,
+    "section_coverage": {
+      "SR": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "not_audited"
+      },
+      "OR": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [],
+        "status": "not_audited"
+      },
+      "SETUP_REFERENCE": {
+        "included_rule_ids": [],
+        "omitted_rule_ids": [],
+        "unresolved_issue_ids": [
+          "1862-U-001"
+        ],
+        "status": "not_audited"
+      }
+    },
+    "approved_rulings": [],
+    "notes": "The existing site page predates the resource-derived publication workflow."
+  }
+}

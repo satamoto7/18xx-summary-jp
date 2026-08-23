@@ -60,8 +60,8 @@
     return cards.map((card) => {
       const titleElement = card.querySelector(".game-card__title-text");
       const title = titleElement ? titleElement.textContent.trim() : "";
-      const summaryHref = card.querySelector(".game-card__cta")?.getAttribute("href") || "";
-      const bggHref = card.querySelector('.game-card__description a[href*="boardgamegeek.com"]')?.href || "";
+      const summaryHref = card.querySelector(".game-card__title-link")?.getAttribute("href") || "";
+      const bggHref = card.querySelector(".game-card__bgg-link")?.href || "";
       const searchText = [
         card.getAttribute("data-search-text"),
         title,

@@ -1,0 +1,12 @@
+[
+  {
+    "date": "2026-08-23",
+    "macrostructure": "index-first / tabular-index / reference-workbench",
+    "theme": "custom",
+    "theme_axes": "cool-paper / condensed-roman / cobalt",
+    "vibe": "railway operations data index",
+    "enrichment": "none",
+    "brief": "Site-wide 18xx enthusiast rules database redesign",
+    "scope": "app"
+  }
+]

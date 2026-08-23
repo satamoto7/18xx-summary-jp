@@ -3,10 +3,13 @@ from __future__ import annotations
 import html
 import json
 import markdown
+import re
 from pathlib import Path
+from urllib.parse import quote
 from material.extensions.emoji import to_svg, twemoji
 
 BGG_META_PATH = Path("docs/assets/bgg-meta.json")
+GAME_PAGES_PATH = Path("docs/games/.pages")
 _icon_md = markdown.Markdown(
     extensions=["pymdownx.emoji"],
     extension_configs={
@@ -16,6 +19,36 @@ _icon_md = markdown.Markdown(
         }
     },
 )
+
+
+def _load_game_pages() -> list[tuple[str, str]]:
+    """Return game titles and built-site hrefs in the maintained nav order."""
+    try:
+        lines = GAME_PAGES_PATH.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return []
+
+    entries: list[tuple[str, str]] = []
+    for line in lines:
+        match = re.match(r"^\s*-\s+(.+\.md)\s*$", line)
+        if not match:
+            continue
+        filename = match.group(1).strip().strip('"\'')
+        if filename == "index.md":
+            continue
+        source = GAME_PAGES_PATH.parent / filename
+        try:
+            heading = next(
+                item[2:].strip()
+                for item in source.read_text(encoding="utf-8").splitlines()
+                if item.startswith("# ")
+            )
+        except (OSError, StopIteration):
+            continue
+        title = re.sub(r"\s+サマリー$", "", heading).strip()
+        href = f"games/{quote(Path(filename).stem)}/"
+        entries.append((title, href))
+    return entries
 
 
 def _material_icon(shortname: str, css_class: str | None = None) -> str:
@@ -114,6 +147,29 @@ def _build_detail_rows_html(fields: dict) -> str:
 
 def define_env(env) -> None:
     bgg_meta = _load_bgg_meta()
+
+    @env.macro
+    def game_quick_index() -> str:
+        entries = _load_game_pages()
+        items = "".join(
+            '<li class="signal-quick-index__item">'
+            f'<span class="signal-quick-index__number" aria-hidden="true">{index:02}</span>'
+            f'<a class="signal-quick-index__link" href="{html.escape(href, quote=True)}">'
+            f"{html.escape(title)}</a>"
+            "</li>"
+            for index, (title, href) in enumerate(entries, start=1)
+        )
+        return (
+            '<div class="signal-index-panel">'
+            '<p class="signal-index-panel__header">'
+            '<span>GAME INDEX</span>'
+            f'<span>{len(entries):02} TITLES</span>'
+            "</p>"
+            '<nav class="signal-quick-index" aria-label="ゲームタイトル索引">'
+            f'<ol class="signal-quick-index__list">{items}</ol>'
+            "</nav>"
+            "</div>"
+        )
 
     def _extract_meta_fields(bgg_id: str) -> dict | None:
         meta = bgg_meta.get(str(bgg_id))
@@ -341,32 +397,93 @@ def define_env(env) -> None:
         bgg_href: str,
         summary_href: str,
     ) -> str:
+        safe_title = html.escape(title) if title else ""
         safe_description = html.escape(description) if description else ""
         safe_bgg_href = html.escape(bgg_href, quote=True) if bgg_href else ""
+        safe_summary_href = html.escape(summary_href, quote=True) if summary_href else ""
         fields = _extract_meta_fields(bgg_id)
 
-        data_attrs = ' data-year="" data-players-min="" data-players-max=""'
+        data_attrs = (
+            ' data-year="" data-players-min="" data-players-max=""'
+            ' data-time-min="" data-time-max=""'
+        )
         if isinstance(fields, dict):
             data_attrs = (
                 f' data-year="{_attr_int(fields["year"])}"'
                 f' data-players-min="{_attr_int(fields["players_min"])}"'
                 f' data-players-max="{_attr_int(fields["players_max"])}"'
+                f' data-time-min="{_attr_int(fields["time_min"])}"'
+                f' data-time-max="{_attr_int(fields["time_max"])}"'
             )
+
+        year_text = "—"
+        players_text = "—"
+        time_text = "—"
+        designer_text = "—"
+        if isinstance(fields, dict):
+            if isinstance(fields["year"], int):
+                year_text = str(fields["year"])
+            players_text = fields["players_text"] or "—"
+            time_text = fields["time_text"] or "—"
+            if fields["safe_designers"]:
+                designer_text = ", ".join(fields["safe_designers"])
 
         bgg_link = ""
         if safe_bgg_href:
-            bgg_link = f' (<a href="{safe_bgg_href}">BGG</a>)'
+            bgg_link = (
+                f'<a class="game-card__bgg-link" href="{safe_bgg_href}" '
+                'target="_blank" rel="noopener">BGG</a>'
+                '<span class="game-card__bgg-separator" aria-hidden="true"> · </span>'
+            )
+
+        title_link = safe_title
+        open_link = ""
+        if safe_summary_href:
+            aria_label = html.escape(f"{title} サマリーを開く", quote=True)
+            title_link = (
+                f'<a class="game-card__title-link" href="{safe_summary_href}" '
+                f'aria-label="{aria_label}"><span class="game-card__title-text">'
+                f"{safe_title}</span></a>"
+            )
+            open_link = (
+                f'<a class="game-card__open" href="{safe_summary_href}" '
+                f'aria-label="{aria_label}">'
+                '<span class="game-card__open-label">開く</span>'
+                f'{_material_icon("material-arrow-right", "game-card__open-icon")}'
+                "</a>"
+            )
+
+        facts = (
+            '<dl class="game-card__facts">'
+            '<div class="game-card__fact game-card__fact--year">'
+            '<dt>年</dt>'
+            f"<dd>{year_text}</dd>"
+            "</div>"
+            '<div class="game-card__fact game-card__fact--players">'
+            '<dt>人数</dt>'
+            f"<dd>{players_text}</dd>"
+            "</div>"
+            '<div class="game-card__fact game-card__fact--time">'
+            '<dt>時間</dt>'
+            f"<dd>{time_text}</dd>"
+            "</div>"
+            '<div class="game-card__fact game-card__fact--designer">'
+            '<dt>デザイナー</dt>'
+            f"<dd>{designer_text}</dd>"
+            "</div>"
+            "</dl>"
+        )
 
         return (
             f'<article class="game-card"{data_attrs}>'
-            f'{game_cover(bgg_id, title, summary_href)}'
-            '<div class="game-card__body">'
+            f'{game_cover(bgg_id, title)}'
+            '<div class="game-card__identity">'
             '<h2 class="game-card__heading">'
-            f'<span class="game-card__title-icon" aria-hidden="true">{icon("material-train")}</span>'
-            f"{game_title(title, bgg_id, summary_href)}"
+            f"{title_link}"
             "</h2>"
-            f'<p class="game-card__description">{safe_description}{bgg_link}</p>'
-            f"{game_actions(bgg_id, summary_href)}"
+            f'<p class="game-card__description">{bgg_link}{safe_description}</p>'
             "</div>"
+            f"{facts}"
+            f"{open_link}"
             "</article>"
         )

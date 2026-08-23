@@ -62,6 +62,31 @@ class DownloadLinkTests(unittest.TestCase):
         self.assertEqual(result, "")
 
 
+class GameQuickIndexTests(unittest.TestCase):
+    def test_quick_index_uses_pages_order_and_strips_summary_suffix(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            games_dir = Path(tmp_dir)
+            pages_path = games_dir / ".pages"
+            pages_path.write_text(
+                "nav:\n  - index.md\n  - 18Test.md\n  - 18Long Name.md\n",
+                encoding="utf-8",
+            )
+            (games_dir / "18Test.md").write_text("# 18Test サマリー\n", encoding="utf-8")
+            (games_dir / "18Long Name.md").write_text(
+                "# 18Long Name サマリー\n", encoding="utf-8"
+            )
+
+            macros = _load_env()
+            with patch("main.GAME_PAGES_PATH", pages_path):
+                result = macros["game_quick_index"]()
+
+        self.assertIn("GAME INDEX", result)
+        self.assertIn("02 TITLES", result)
+        self.assertIn('href="games/18Test/"', result)
+        self.assertIn('href="games/18Long%20Name/"', result)
+        self.assertNotIn("18Test サマリー", result)
+
+
 class GameActionsCTATests(unittest.TestCase):
     def setUp(self):
         meta = {
