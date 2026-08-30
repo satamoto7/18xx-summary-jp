@@ -33,6 +33,27 @@ class ValidateStructureTests(unittest.TestCase):
             self.assertEqual(result.errors, [])
             self.assertEqual(result.warnings, [])
 
+    def test_validate_game_file_accepts_summary_actions_without_legacy_downloads(self) -> None:
+        content = """# 18Test サマリー
+
+<div class="actions">
+  {{ summary_actions("18Test") }}
+</div>
+
+=== "SR"
+    text
+=== "OR"
+    text
+=== "セットアップ / 早見"
+    text
+"""
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "18Test.md"
+            _write(path, content)
+            result = validate_game_file(path)
+            self.assertEqual(result.errors, [])
+            self.assertEqual(result.warnings, [])
+
     def test_validate_game_file_detects_missing_required_elements(self) -> None:
         content = """# 18Bad
 

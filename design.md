@@ -17,7 +17,7 @@ SIGNAL INDEX is a fast reference interface for people who already understand 18x
 2. Compare year, player count, duration, and designer at a glance.
 3. Open a summary and jump to SR, OR, or setup immediately.
 4. Locate a section during play without losing the current tab or reading position.
-5. Print or download the same source without changing the rules content.
+5. Download an approved tabletop PDF when available, or report a play on X without leaving the reference workflow.
 
 ## Shared macrostructure
 
@@ -46,7 +46,9 @@ SIGNAL INDEX is a fast reference interface for people who already understand 18x
 
 ### Game summary — Reference Workbench
 
-- The title, print/download/list actions, and tab set form one clear operating header.
+- The title, tabletop-PDF/X-report actions, author attribution, game-index link, and tab set form one clear operating header.
+- The tabletop PDF is the primary action only when an approved file exists. The interface does not advertise unfinished PDFs.
+- Author attribution stays quiet below the title. The note support link is visually separated from free downloads and reports.
 - SR, OR, and setup tabs are full-width and sticky below the site bar.
 - Body content is not wrapped in a decorative card. Headings, rules, and spacing establish hierarchy.
 - Tables use clear rules and horizontal overflow affordances; no viewport-level horizontal scroll.

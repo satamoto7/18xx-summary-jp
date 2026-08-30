@@ -5,7 +5,7 @@ import json
 import markdown
 import re
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 from material.extensions.emoji import to_svg, twemoji
 
 BGG_META_PATH = Path("docs/assets/bgg-meta.json")
@@ -260,6 +260,68 @@ def define_env(env) -> None:
         safe_name = html.escape(filename, quote=True)
         href = f"../../assets/{safe_name}"
         return f'<a class="btn btn--outline btn--sm" href="{href}" download>テキストDL</a>'
+
+    @env.macro
+    def summary_actions(game_name: str, pdf_filename: str = "") -> str:
+        display_name = str(game_name).strip() or "このゲーム"
+        safe_display_name = html.escape(display_name)
+
+        pdf_link = ""
+        candidate = str(pdf_filename).strip()
+        if candidate:
+            candidate_path = Path(candidate)
+            if candidate_path.name == candidate and candidate_path.suffix.lower() == ".pdf":
+                safe_href = f"../../downloads/{quote(candidate)}"
+                safe_label = html.escape(
+                    f"{display_name} 卓上用PDFをダウンロード", quote=True
+                )
+                pdf_link = (
+                    '<a class="btn btn--primary btn--sm summary-actions__pdf" '
+                    f'href="{safe_href}" download aria-label="{safe_label}">'
+                    "卓上用PDF"
+                    "</a>"
+                )
+
+        report_text = f"{display_name}を遊びました。18xxサマリーを使いました。 @hirombs"
+        report_query = urlencode(
+            {
+                "text": report_text,
+                "hashtags": "18xxサマリー",
+                "lang": "ja",
+            }
+        )
+        report_href = html.escape(
+            f"https://x.com/intent/tweet?{report_query}", quote=True
+        )
+        buttons_class = "summary-actions__buttons"
+        if not pdf_link:
+            buttons_class += " summary-actions__buttons--single"
+
+        return (
+            f'<div class="{buttons_class}">'
+            f"{pdf_link}"
+            '<a class="btn btn--outline btn--sm summary-actions__report" '
+            f'href="{report_href}" target="_blank" rel="noopener" '
+            f'aria-label="{safe_display_name}のプレイ報告をXに投稿">'
+            "Xでプレイ報告"
+            "</a>"
+            "</div>"
+            '<div class="summary-actions__meta">'
+            "<span>作成：さたもと</span>"
+            '<a href="https://x.com/hirombs" target="_blank" rel="me noopener">'
+            "@hirombs"
+            "</a>"
+            '<span class="summary-actions__divider" aria-hidden="true">·</span>'
+            '<a class="summary-actions__back" href="../">ゲーム一覧へ戻る</a>'
+            "</div>"
+            '<div class="summary-support-row">'
+            '<a class="summary-support-link" href="https://note.com/satamoto" '
+            'target="_blank" rel="noopener">'
+            "制作活動を支援する"
+            '<span aria-hidden="true"> →</span>'
+            "</a>"
+            "</div>"
+        )
 
     @env.macro
     def game_title(title: str, bgg_id: str, href: str = "") -> str:

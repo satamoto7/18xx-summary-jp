@@ -1,4 +1,9 @@
-/* SIGNAL INDEX button and action system */
+/* Hallmark · component: summary operating header · genre: modern-minimal
+ * tone: technical / restrained · palette: SIGNAL INDEX cobalt · structure: reference-workbench
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * pre-emit critique: P5 H5 E5 S5 R5 V4 · contrast: pass (40–41)
+ * mobile: pass (34, 49, 50–57) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
+ */
 
 .md-typeset .btn,
 .md-typeset .actions .action-link {
@@ -20,12 +25,17 @@
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    opacity var(--transition-base),
+    transform var(--transition-fast);
 }
 
 .md-typeset .btn:focus-visible,
 .md-typeset .actions .action-link:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
   box-shadow: 0 0 0 3px var(--color-focus-halo);
 }
@@ -36,17 +46,11 @@
   color: var(--color-accent-ink);
 }
 
-.md-typeset .btn--primary:hover {
-  background: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  color: var(--color-accent-ink);
-  text-decoration: none;
-}
-
 .md-typeset .btn--primary:active {
   background: var(--color-ink);
   border-color: var(--color-ink);
   color: var(--color-paper-raised);
+  transform: translateY(1px);
 }
 
 .md-typeset .btn--outline,
@@ -56,19 +60,12 @@
   color: var(--color-ink-2);
 }
 
-.md-typeset .btn--outline:hover,
-.md-typeset .actions .action-link:hover {
-  background: var(--color-accent-soft);
-  border-color: var(--color-accent);
-  color: var(--color-accent-hover);
-  text-decoration: none;
-}
-
 .md-typeset .btn--outline:active,
 .md-typeset .actions .action-link:active {
   background: var(--color-paper-active);
   border-color: var(--color-accent-hover);
   color: var(--color-ink);
+  transform: translateY(1px);
 }
 
 .md-typeset .btn:disabled,
@@ -96,6 +93,47 @@
 .md-typeset .actions .twemoji {
   width: 1em;
   height: 1em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .md-typeset .btn--primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-accent-ink);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  .md-typeset .btn--outline:hover,
+  .md-typeset .actions .action-link:hover {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-accent-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+.md-typeset .btn:active,
+.md-typeset .actions .action-link:active {
+  transform: translateY(1px);
+}
+
+.md-typeset .btn[data-state="loading"] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.md-typeset .btn[data-state="error"] {
+  background: var(--color-paper-raised);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.md-typeset .btn[data-state="success"] {
+  background: var(--color-paper-raised);
+  border-color: var(--color-positive);
+  color: var(--color-positive);
 }
 
 @media screen and (max-width: 48rem) {

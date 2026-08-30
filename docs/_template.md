@@ -7,9 +7,12 @@
 1. [ゲーム名]を実際のゲーム名に置き換える
    例: # 1830 サマリー
    
-2. 印刷ボタンとテキストDL
-   - `download_link("[ゲーム名].txt")` のコメントを外す
-   - `.txt` は `scripts/export_text.py` で生成する（手動編集しない）
+2. 公開アクション
+   - 通常は `summary_actions("[ゲーム名]")` を使う
+   - 監査・承認済みの卓上用PDFがある場合だけ、第2引数へファイル名を指定する
+     例: `summary_actions("1830", "1830-player-aid.pdf")`
+   - PDFは `docs/downloads/` に置く。未完成・未監査のPDFボタンは表示しない
+   - `.txt` は引き続き `scripts/export_text.py` で生成する（手動編集しない）
    
 3. 各セクションを埋める
    - <!-- --> のコメントを参考に記入
@@ -35,10 +38,7 @@
 -->
 
 <div class="actions">
-  {{ print_button() }}
-  <a class="action-link" href="../">ゲーム一覧へ戻る</a>
-  <!-- テキストDLを提供する場合は以下のコメントを外す -->
-  <!-- {{ download_link("[ゲーム名].txt") }} -->
+  {{ summary_actions("[ゲーム名]") }}
 </div>
 
 === "SR"

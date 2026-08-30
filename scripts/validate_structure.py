@@ -14,6 +14,9 @@ GAMES_PAGES_PATH = GAMES_DIR / ".pages"
 TAB_PATTERN = re.compile(r'^===\s+"([^"]+)"\s*$', re.MULTILINE)
 TITLE_PATTERN = re.compile(r"^#\s+.+\s+サマリー\s*$", re.MULTILINE)
 ACTION_BLOCK_PATTERN = re.compile(r'<div class="actions">(?P<body>.*?)</div>', re.DOTALL)
+SUMMARY_ACTIONS_MACRO_PATTERN = re.compile(
+    r'{{\s*summary_actions\(\s*"(?P<game_name>[^"]+)"(?:\s*,\s*"[^"]+")?\s*\)\s*}}'
+)
 DOWNLOAD_MACRO_PATTERN = re.compile(r'{{\s*download_link\("(?P<filename>[^"]+)"\)\s*}}')
 DOWNLOAD_HREF_PATTERN = re.compile(r'href\s*=\s*"(?P<href>[^"]+)"')
 GAMES_INDEX_ACTION_PATTERN = re.compile(
@@ -118,54 +121,62 @@ def validate_game_file(path: Path) -> ValidationSummary:
         )
     else:
         action_body = action_match.group("body")
-        if "{{ print_button() }}" not in action_body:
-            errors.append(
-                ValidationIssue(
-                    path=path,
-                    level="ERROR",
-                    message="actionsブロック内に `print_button()` がありません。",
-                )
-            )
-
-        expected_filename = f"{path.stem}.txt"
-        macro_match = DOWNLOAD_MACRO_PATTERN.search(action_body)
-        if macro_match:
-            actual_filename = macro_match.group("filename")
-            if actual_filename != expected_filename:
+        summary_actions_match = SUMMARY_ACTIONS_MACRO_PATTERN.search(action_body)
+        if not summary_actions_match:
+            if "{{ print_button() }}" not in action_body:
                 errors.append(
                     ValidationIssue(
                         path=path,
                         level="ERROR",
                         message=(
-                            f"download_linkのファイル名が不一致です。"
-                            f" expected=`{expected_filename}`, actual=`{actual_filename}`"
+                            "actionsブロック内に `summary_actions()` または "
+                            "従来形式の `print_button()` がありません。"
                         ),
                     )
                 )
-        else:
-            href_match = DOWNLOAD_HREF_PATTERN.search(action_body)
-            expected_href = f"../../assets/{expected_filename}"
-            if not href_match:
-                errors.append(
-                    ValidationIssue(
-                        path=path,
-                        level="ERROR",
-                        message="actionsブロック内に download_link またはダウンロードhrefがありません。",
-                    )
-                )
-            else:
-                actual_href = href_match.group("href")
-                if actual_href != expected_href:
+
+            expected_filename = f"{path.stem}.txt"
+            macro_match = DOWNLOAD_MACRO_PATTERN.search(action_body)
+            if macro_match:
+                actual_filename = macro_match.group("filename")
+                if actual_filename != expected_filename:
                     errors.append(
                         ValidationIssue(
                             path=path,
                             level="ERROR",
                             message=(
-                                f"テキストDLリンクが不一致です。"
-                                f" expected=`{expected_href}`, actual=`{actual_href}`"
+                                f"download_linkのファイル名が不一致です。"
+                                f" expected=`{expected_filename}`, actual=`{actual_filename}`"
                             ),
                         )
                     )
+            else:
+                href_match = DOWNLOAD_HREF_PATTERN.search(action_body)
+                expected_href = f"../../assets/{expected_filename}"
+                if not href_match:
+                    errors.append(
+                        ValidationIssue(
+                            path=path,
+                            level="ERROR",
+                            message=(
+                                "従来形式のactionsブロック内に download_link または "
+                                "ダウンロードhrefがありません。"
+                            ),
+                        )
+                    )
+                else:
+                    actual_href = href_match.group("href")
+                    if actual_href != expected_href:
+                        errors.append(
+                            ValidationIssue(
+                                path=path,
+                                level="ERROR",
+                                message=(
+                                    f"テキストDLリンクが不一致です。"
+                                    f" expected=`{expected_href}`, actual=`{actual_href}`"
+                                ),
+                            )
+                        )
 
     tabs = _extract_tabs(content)
     tab_set = set(tabs)

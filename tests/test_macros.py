@@ -1,10 +1,12 @@
 """Tests for main.py macro HTML output — verifies .btn classes are present."""
 from __future__ import annotations
 
+import html
 import json
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 from unittest.mock import patch
 
 
@@ -60,6 +62,47 @@ class DownloadLinkTests(unittest.TestCase):
     def test_download_link_empty_filename(self):
         result = self.macros["download_link"]("")
         self.assertEqual(result, "")
+
+
+class SummaryActionsTests(unittest.TestCase):
+    def setUp(self):
+        self.macros = _load_env()
+
+    def test_summary_actions_omits_pdf_when_filename_is_empty(self):
+        result = self.macros["summary_actions"]("1862")
+        self.assertNotIn("卓上用PDF", result)
+        self.assertIn("summary-actions__buttons--single", result)
+        self.assertIn("Xでプレイ報告", result)
+
+    def test_summary_actions_adds_approved_pdf_download(self):
+        result = self.macros["summary_actions"]("1862", "1862-player-aid.pdf")
+        self.assertIn("btn--primary", result)
+        self.assertIn("../../downloads/1862-player-aid.pdf", result)
+        self.assertIn("download", result)
+
+    def test_summary_actions_rejects_nested_or_non_pdf_path(self):
+        nested = self.macros["summary_actions"]("1862", "../1862-player-aid.pdf")
+        text_file = self.macros["summary_actions"]("1862", "1862.txt")
+        self.assertNotIn("卓上用PDF", nested)
+        self.assertNotIn("卓上用PDF", text_file)
+
+    def test_summary_actions_prefills_x_report(self):
+        result = html.unescape(self.macros["summary_actions"]("1862"))
+        href = result.split('href="', 1)[1].split('"', 1)[0]
+        parsed = urlparse(href)
+        query = parse_qs(parsed.query)
+        self.assertEqual(parsed.netloc, "x.com")
+        self.assertEqual(parsed.path, "/intent/tweet")
+        self.assertIn("1862を遊びました", query["text"][0])
+        self.assertIn("@hirombs", query["text"][0])
+        self.assertEqual(query["hashtags"], ["18xxサマリー"])
+
+    def test_summary_actions_includes_author_back_link_and_support(self):
+        result = self.macros["summary_actions"]("1862")
+        self.assertIn("作成：さたもと", result)
+        self.assertIn("https://x.com/hirombs", result)
+        self.assertIn('href="../"', result)
+        self.assertIn("https://note.com/satamoto", result)
 
 
 class GameQuickIndexTests(unittest.TestCase):

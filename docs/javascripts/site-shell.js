@@ -84,14 +84,24 @@
       return;
     }
 
+    const enhancedActions = actions.querySelector(":scope > .summary-actions__buttons");
+    const supportRow = actions.querySelector(":scope > .summary-support-row");
+
     const identity = document.createElement("section");
     identity.className = "summary-identity";
+    if (enhancedActions) {
+      identity.classList.add("summary-identity--enhanced");
+      actions.classList.add("actions--summary");
+    }
     identity.setAttribute("aria-labelledby", heading.id || "summary-title");
     if (!heading.id) {
       heading.id = "summary-title";
     }
     content.insertBefore(identity, heading);
     identity.append(heading, actions);
+    if (supportRow) {
+      content.insertBefore(supportRow, identity.nextSibling);
+    }
   }
 
   function labelSecondaryNavigation() {
